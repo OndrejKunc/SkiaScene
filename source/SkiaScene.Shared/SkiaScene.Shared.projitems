@@ -9,5 +9,8 @@
     <Import_RootNamespace>SkiaScene.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ISKScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ISKSceneRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SKScene.cs" />
   </ItemGroup>
 </Project>
