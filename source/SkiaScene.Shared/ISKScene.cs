@@ -11,6 +11,7 @@ namespace SkiaScene
         void MoveBySize(SKSize size);
         void Rotate(SKPoint point, float radians);
         void RotateByRadiansDelta(SKPoint point, float radiansDelta);
+        SKPoint GetCanvasPointFromViewPoint(SKPoint viewPoint);
         SKPoint Center { get; }
         float Scale { get; }
         float AngleInRadians { get; }

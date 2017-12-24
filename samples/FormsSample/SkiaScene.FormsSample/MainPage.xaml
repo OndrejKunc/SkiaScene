@@ -5,7 +5,7 @@
              x:Class="SkiaScene.FormsSample.MainPage"
              xmlns:views="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms">
 
-    <views:SKCanvasView x:Name="canvas" PaintSurface="OnPaint">
+    <views:SKCanvasView x:Name="canvasView" PaintSurface="OnPaint" EnableTouchEvents="True">
         <views:SKCanvasView.GestureRecognizers>
             <TapGestureRecognizer Tapped="OnTap" />
             <PanGestureRecognizer PanUpdated="OnPan" />

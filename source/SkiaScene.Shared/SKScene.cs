@@ -86,14 +86,21 @@ namespace SkiaScene
             invalidateSceneAction();
         }
 
-        private void RecalculateCenter()
+
+        public SKPoint GetCanvasPointFromViewPoint(SKPoint viewPoint)
         {
+
             SKMatrix invertedMatrix;
             if (!Matrix.TryInvert(out invertedMatrix))
             {
-                return;
+                return SKPoint.Empty;
             }
-            Center = invertedMatrix.MapPoint(DefaultCenter.X, DefaultCenter.Y);
+            return invertedMatrix.MapPoint(viewPoint);
+        }
+
+        private void RecalculateCenter()
+        {
+            Center = GetCanvasPointFromViewPoint(DefaultCenter);
         }
     }
 }

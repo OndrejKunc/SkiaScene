@@ -13,7 +13,7 @@ namespace SkiaScene.FormsSample
                 paint.IsAntialias = true;
                 paint.Color = new SKColor(0x2c, 0x3e, 0x50);
                 paint.StrokeCap = SKStrokeCap.Round;
-
+                canvas.DrawRect(new SKRect(0, 0, 1080, 1731), new SKPaint { Color = new SKColor(255,10,10) });
                 for (int i = 1; i <= 5; i++)
                 {
                     for (int y = 1; y <= 10; y++)
