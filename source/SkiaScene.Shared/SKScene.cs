@@ -13,19 +13,15 @@ namespace SkiaScene
         {
             _sceneRenderer = sceneRenderer;
             DefaultCenter = new SKPoint(canvasSize.Width / 2, canvasSize.Height / 2);
-            Center = DefaultCenter;
         }
-
-        public SKPoint Center { get; private set; }
-
-        public float Scale { get; private set; } = 1;
-
-        public float AngleInRadians { get; private set; }
 
         public void Render(SKCanvas canvas)
         {
-            canvas.SetMatrix(Matrix);
-            _sceneRenderer.Render(canvas, AngleInRadians, Center, Scale);
+            canvas.Concat(ref Matrix);
+            var center = GetCenter();
+            var angleInRadians = GetAngleInRadians();
+            var scale = GetScale();
+            _sceneRenderer.Render(canvas, angleInRadians, center, scale);
         }
 
         public void MoveBySize(SKSize size)
@@ -37,45 +33,39 @@ namespace SkiaScene
             }
             var resultPoint = invertedMatrix.MapVector(size.Width, size.Height);
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeTranslation(resultPoint.X, resultPoint.Y));
-            RecalculateCenter();
         }
         
         public void MoveToPoint(SKPoint point)
         {
-            SKPoint diff = Center - point;
-            Center = point;
+            var center = GetCenter();
+            SKPoint diff = center - point;
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeTranslation(diff.X, diff.Y));
-            RecalculateCenter();
         }
         
         public void Rotate(SKPoint point, float radians)
         {
-            var angleDiff = radians - AngleInRadians;
-            AngleInRadians = radians;
+            var currentAngle = GetAngleInRadians();
+            var angleDiff = radians - currentAngle;
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeRotation(angleDiff, point.X, point.Y));
-            RecalculateCenter();
         }
 
         public void RotateByRadiansDelta(SKPoint point, float radiansDelta)
         {
-            AngleInRadians += radiansDelta;
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeRotation(radiansDelta, point.X, point.Y));
-            RecalculateCenter();
         }
 
         public void Zoom(SKPoint point, float scale)
         {
-            var scaleFactor = scale / Scale;
-            Scale = scale;
+            var currentScale = GetScale();
+            var scaleFactor = scale / currentScale;
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeScale(scaleFactor, scaleFactor, point.X, point.Y));
-            RecalculateCenter();
         }
         
         public void ZoomByScaleFactor(SKPoint point, float scaleFactor)
         {
-            Scale *= scaleFactor;
+            var currentScale = GetScale();
+            currentScale *= scaleFactor;
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeScale(scaleFactor, scaleFactor, point.X, point.Y));
-            RecalculateCenter();
         }
 
 
@@ -89,10 +79,32 @@ namespace SkiaScene
             }
             return invertedMatrix.MapPoint(viewPoint);
         }
-
-        private void RecalculateCenter()
+        
+        public SKPoint GetCenter()
         {
-            Center = GetCanvasPointFromViewPoint(DefaultCenter);
+            return GetCanvasPointFromViewPoint(DefaultCenter);
+        }
+
+        /// <summary>
+        /// Returns number from interval [-pi to pi]
+        /// </summary>
+        /// <returns></returns>
+        public float GetAngleInRadians()
+        {
+            //https://stackoverflow.com/questions/4361242/extract-rotation-scale-values-from-2d-transformation-matrix
+            var skewY = Matrix.SkewY;
+            var scaleY = Matrix.ScaleY;
+            var result = Math.Atan2(skewY, scaleY);
+            return (float)result;
+        }
+
+        public float GetScale()
+        {
+            //https://stackoverflow.com/questions/4361242/extract-rotation-scale-values-from-2d-transformation-matrix
+            var scaleX = Matrix.ScaleX;
+            var skewY = Matrix.SkewY;
+            var result = Math.Sqrt(scaleX * scaleX + skewY * skewY);
+            return (float) result;
         }
     }
 }

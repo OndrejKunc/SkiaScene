@@ -62,7 +62,7 @@ namespace SkiaScene.FormsSample
             Debug.WriteLine($"Pinch - Scale:{args.Scale} Point:{args.ScaleOrigin} Status:{args.Status}");
             var viewPoint = GetCanvasPointFromScalePoint(args.ScaleOrigin);
             var canvasPoint = _scene.GetCanvasPointFromViewPoint(viewPoint);
-            _scene.ZoomByScaleFactor(canvasPoint, (float) args.Scale);
+            _scene.ZoomByScaleFactor(canvasPoint, (float)args.Scale);
             canvasView.InvalidateSurface();
             if (args.Status == GestureStatus.Completed)
             {
