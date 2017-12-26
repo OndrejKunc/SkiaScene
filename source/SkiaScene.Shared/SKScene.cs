@@ -6,14 +6,12 @@ namespace SkiaScene
     public class SKScene : ISKScene
     {
         protected readonly ISKSceneRenderer _sceneRenderer;
-        protected readonly Action invalidateSceneAction;
         protected SKMatrix Matrix = SKMatrix.MakeIdentity();
         protected readonly SKPoint DefaultCenter;
 
-        public SKScene(ISKSceneRenderer sceneRenderer, Action invalidateSceneAction, SKSize canvasSize)
+        public SKScene(ISKSceneRenderer sceneRenderer, SKSize canvasSize)
         {
             _sceneRenderer = sceneRenderer;
-            this.invalidateSceneAction = invalidateSceneAction;
             DefaultCenter = new SKPoint(canvasSize.Width / 2, canvasSize.Height / 2);
             Center = DefaultCenter;
         }
@@ -40,7 +38,6 @@ namespace SkiaScene
             var resultPoint = invertedMatrix.MapVector(size.Width, size.Height);
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeTranslation(resultPoint.X, resultPoint.Y));
             RecalculateCenter();
-            invalidateSceneAction();
         }
         
         public void MoveToPoint(SKPoint point)
@@ -49,7 +46,6 @@ namespace SkiaScene
             Center = point;
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeTranslation(diff.X, diff.Y));
             RecalculateCenter();
-            invalidateSceneAction();
         }
         
         public void Rotate(SKPoint point, float radians)
@@ -58,7 +54,6 @@ namespace SkiaScene
             AngleInRadians = radians;
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeRotation(angleDiff, point.X, point.Y));
             RecalculateCenter();
-            invalidateSceneAction();
         }
 
         public void RotateByRadiansDelta(SKPoint point, float radiansDelta)
@@ -66,7 +61,6 @@ namespace SkiaScene
             AngleInRadians += radiansDelta;
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeRotation(radiansDelta, point.X, point.Y));
             RecalculateCenter();
-            invalidateSceneAction();
         }
 
         public void Zoom(SKPoint point, float scale)
@@ -75,7 +69,6 @@ namespace SkiaScene
             Scale = scale;
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeScale(scaleFactor, scaleFactor, point.X, point.Y));
             RecalculateCenter();
-            invalidateSceneAction();
         }
         
         public void ZoomByScaleFactor(SKPoint point, float scaleFactor)
@@ -83,7 +76,6 @@ namespace SkiaScene
             Scale *= scaleFactor;
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeScale(scaleFactor, scaleFactor, point.X, point.Y));
             RecalculateCenter();
-            invalidateSceneAction();
         }
 
 

@@ -43,6 +43,7 @@ namespace SkiaScene.FormsSample
                     previousPanY = args.TotalY;
                     var size = new SKSize(currentX * scale, currentY * scale);
                     _scene.MoveBySize(size);
+                    canvasView.InvalidateSurface();
                     break;
                 case GestureStatus.Completed:
                     previousPanX = 0;
@@ -62,6 +63,7 @@ namespace SkiaScene.FormsSample
             var viewPoint = GetCanvasPointFromScalePoint(args.ScaleOrigin);
             var canvasPoint = _scene.GetCanvasPointFromViewPoint(viewPoint);
             _scene.ZoomByScaleFactor(canvasPoint, (float) args.Scale);
+            canvasView.InvalidateSurface();
             if (args.Status == GestureStatus.Completed)
             {
                 lastPinchCompleted = DateTime.Now;
@@ -77,7 +79,7 @@ namespace SkiaScene.FormsSample
         {
             if (_scene == null)
             {
-                _scene = new SKScene(new TestScenereRenderer(), () => canvasView.InvalidateSurface(), canvasView.CanvasSize);
+                _scene = new SKScene(new TestScenereRenderer(), canvasView.CanvasSize);
 
             }
             SKImageInfo info = args.Info;
