@@ -24,14 +24,14 @@ namespace SkiaScene
             _sceneRenderer.Render(canvas, angleInRadians, center, scale);
         }
 
-        public void MoveBySize(SKSize size)
+        public void MoveByVector(SKPoint vector)
         {
             SKMatrix invertedMatrix;
             if (!Matrix.TryInvert(out invertedMatrix))
             { 
                 return;
             }
-            var resultPoint = invertedMatrix.MapVector(size.Width, size.Height);
+            var resultPoint = invertedMatrix.MapVector(vector.X, vector.Y);
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeTranslation(resultPoint.X, resultPoint.Y));
         }
         

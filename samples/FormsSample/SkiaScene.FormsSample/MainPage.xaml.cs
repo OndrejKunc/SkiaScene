@@ -1,6 +1,7 @@
 ﻿using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
 
@@ -10,13 +11,53 @@ namespace SkiaScene.FormsSample
     {
         //Prevent glitch when only one finger is released after pinch and pan is immediatelly started
         private DateTime lastPinchCompleted = DateTime.MinValue;
-        private SKScene _scene;
+        private ISKScene _scene;
+        private ITouchManipulationManager _touchManipulationManger;
         private double previousPanX;
         private double previousPanY;
+
+        List<long> touchIds = new List<long>();
 
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void OnTouch(object sender, SKTouchEventArgs args)
+        {
+            //TODO
+            return;
+            SKPoint pt = args.Location;
+            SKPoint point =
+                new SKPoint((float)(canvasView.CanvasSize.Width * pt.X / canvasView.Width),
+                            (float)(canvasView.CanvasSize.Height * pt.Y / canvasView.Height));
+
+            var actionType = MapToTouchActionType(args.ActionType);
+
+            switch (actionType)
+            {
+                case TouchActionType.Pressed:
+                    touchIds.Add(args.Id);
+                    _touchManipulationManger.ProcessTouchEvent(args.Id, actionType, point);
+                    break;
+                case TouchActionType.Moved:
+                    if (touchIds.Contains(args.Id))
+                    {
+                        _touchManipulationManger.ProcessTouchEvent(args.Id, actionType, point);
+                        canvasView.InvalidateSurface();
+                    }
+                    break;
+
+                case TouchActionType.Released:
+                case TouchActionType.Cancelled:
+                    if (touchIds.Contains(args.Id))
+                    {
+                        _touchManipulationManger.ProcessTouchEvent(args.Id, actionType, point);
+                        touchIds.Remove(args.Id);
+                        canvasView.InvalidateSurface();
+                    }
+                    break;
+            }
         }
 
         private void OnPan(object sender, PanUpdatedEventArgs args)
@@ -41,8 +82,8 @@ namespace SkiaScene.FormsSample
                     var currentY = (float)(args.TotalY - previousPanY);
                     previousPanX = args.TotalX;
                     previousPanY = args.TotalY;
-                    var size = new SKSize(currentX * scale, currentY * scale);
-                    _scene.MoveBySize(size);
+                    var vector = new SKPoint(currentX * scale, currentY * scale);
+                    _scene.MoveByVector(vector);
                     canvasView.InvalidateSurface();
                     break;
                 case GestureStatus.Completed:
@@ -80,6 +121,7 @@ namespace SkiaScene.FormsSample
             if (_scene == null)
             {
                 _scene = new SKScene(new TestScenereRenderer(), canvasView.CanvasSize);
+                _touchManipulationManger = new TouchManipulationManager(_scene);
 
             }
             SKImageInfo info = args.Info;
@@ -92,14 +134,26 @@ namespace SkiaScene.FormsSample
         {
             return new SKPoint((float)(scalePoint.X * canvasView.CanvasSize.Width), (float)(scalePoint.Y * canvasView.CanvasSize.Height));
         }
-    }
 
-    public enum GestureState
-    {
-        Started,
-        Running,
-        Completed,
-        Cancelled
+        private TouchActionType MapToTouchActionType(SKTouchAction touchAction)
+        {
+            switch (touchAction)
+            {
+                case SKTouchAction.Entered:
+                    return TouchActionType.Entered;
+                case SKTouchAction.Pressed:
+                    return TouchActionType.Pressed;
+                case SKTouchAction.Moved:
+                    return TouchActionType.Moved;
+                case SKTouchAction.Released:
+                    return TouchActionType.Released;
+                case SKTouchAction.Cancelled:
+                    return TouchActionType.Cancelled;
+                case SKTouchAction.Exited:
+                    return TouchActionType.Exited;
+                default:
+                    throw new ArgumentException(nameof(touchAction));
+            }
+        }
     }
-
 }

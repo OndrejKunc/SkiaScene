@@ -5,12 +5,24 @@
              x:Class="SkiaScene.FormsSample.MainPage"
              xmlns:views="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms">
 
-    <views:SKCanvasView x:Name="canvasView" PaintSurface="OnPaint" EnableTouchEvents="True">
-        <views:SKCanvasView.GestureRecognizers>
-            <TapGestureRecognizer Tapped="OnTap" />
-            <PanGestureRecognizer PanUpdated="OnPan" />
-            <PinchGestureRecognizer PinchUpdated="OnPinch" />
-        </views:SKCanvasView.GestureRecognizers>
-    </views:SKCanvasView>
+    <Grid
+        BackgroundColor="White">
+        <views:SKCanvasView 
+        x:Name="canvasView" 
+        PaintSurface="OnPaint" 
+        Touch="OnTouch"
+        EnableTouchEvents="True">
+            <views:SKCanvasView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnTap" />
+                <PanGestureRecognizer PanUpdated="OnPan" />
+                <PinchGestureRecognizer PinchUpdated="OnPinch" />
+            </views:SKCanvasView.GestureRecognizers>
+        </views:SKCanvasView>
+        <!--<Grid.Effects>
+            <tt:TouchEffect Capture="True"
+                                TouchAction="OnTouchEffectAction" />
+        </Grid.Effects>-->
+    </Grid>
+
 
 </ContentPage>
