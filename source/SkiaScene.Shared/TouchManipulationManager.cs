@@ -73,7 +73,11 @@ namespace SkiaScene
 
         private void ManipulateTwoFingers(SKPoint previousPoint, SKPoint newPoint, SKPoint pivotPoint)
         {
-            SKMatrix touchMatrix = SKMatrix.MakeIdentity();
+            previousPoint = _skScene.GetCanvasPointFromViewPoint(previousPoint);
+            newPoint = _skScene.GetCanvasPointFromViewPoint(newPoint);
+            pivotPoint = _skScene.GetCanvasPointFromViewPoint(pivotPoint);
+
+
             SKPoint oldVector = previousPoint - pivotPoint;
             SKPoint newVector = newPoint - pivotPoint;
 

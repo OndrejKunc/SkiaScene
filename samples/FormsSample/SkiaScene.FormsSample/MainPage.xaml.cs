@@ -26,10 +26,10 @@ namespace SkiaScene.FormsSample
 
         private void OnTouchEffectAction(object sender, TouchActionEventArgs args)
         {
-            SKPoint pt = args.Location;
+            SKPoint viewPoint = args.Location;
             SKPoint point =
-                new SKPoint((float)(canvasView.CanvasSize.Width * pt.X / canvasView.Width),
-                            (float)(canvasView.CanvasSize.Height * pt.Y / canvasView.Height));
+                new SKPoint((float)(canvasView.CanvasSize.Width * viewPoint.X / canvasView.Width),
+                            (float)(canvasView.CanvasSize.Height * viewPoint.Y / canvasView.Height));
 
             var actionType = args.Type;
 
