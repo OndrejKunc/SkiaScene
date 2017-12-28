@@ -4,6 +4,9 @@ namespace SkiaScene.FormsSample
 {
     public class TestScenereRenderer : ISKSceneRenderer
     {
+        private const int columns = 5;
+        private const int rows = 10;
+
         public void Render(SKCanvas canvas, float angleInRadians, SKPoint center, float scale)
         {
             canvas.Clear(SKColors.White);
@@ -13,10 +16,10 @@ namespace SkiaScene.FormsSample
                 paint.IsAntialias = true;
                 paint.Color = new SKColor(0x2c, 0x3e, 0x50);
                 paint.StrokeCap = SKStrokeCap.Round;
-                canvas.DrawRect(new SKRect(0, 0, 1080, 1731), new SKPaint { Color = new SKColor(255,10,10) });
-                for (int i = 1; i <= 5; i++)
+                canvas.DrawRect(new SKRect(0, 0, 1080, 1800), new SKPaint { Color = new SKColor(255,10,10) });
+                for (int i = 1; i <= columns; i++)
                 {
-                    for (int y = 1; y <= 10; y++)
+                    for (int y = 1; y <= rows; y++)
                     {
                         using (var path = new SKPath())
                         {
