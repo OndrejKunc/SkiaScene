@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\source\SkiaScene.Forms.NetStandard\SkiaScene.Forms.NetStandard.csproj" />
     <ProjectReference Include="..\..\..\source\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj" />
   </ItemGroup>
 

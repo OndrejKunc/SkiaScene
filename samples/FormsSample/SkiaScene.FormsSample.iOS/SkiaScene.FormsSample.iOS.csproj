@@ -126,6 +126,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\..\source\SkiaScene.Forms.iOS\SkiaScene.Forms.iOS.csproj">
+      <Project>{cb23adb2-d164-4c10-b20f-b239e7446731}</Project>
+      <Name>SkiaScene.Forms.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
+    </ProjectReference>
     <ProjectReference Include="..\SkiaScene.FormsSample\SkiaScene.FormsSample.csproj">
       <Project>{93935A28-B082-420A-82B7-2731DA250331}</Project>
       <Name>SkiaScene.FormsSample</Name>

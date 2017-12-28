@@ -155,6 +155,10 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\source\SkiaScene.Forms.UWP\SkiaScene.Forms.UWP.csproj">
+      <Project>{75f38d2d-c200-4842-9cb0-bcdd182838d2}</Project>
+      <Name>SkiaScene.Forms.UWP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SkiaScene.FormsSample\SkiaScene.FormsSample.csproj">
       <Project>{93935A28-B082-420A-82B7-2731DA250331}</Project>
       <Name>SkiaScene.FormsSample</Name>

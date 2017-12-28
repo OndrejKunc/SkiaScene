@@ -3,6 +3,7 @@ using SkiaSharp.Views.Forms;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using SkiaScene.TouchTracking;
 using Xamarin.Forms;
 
 namespace SkiaScene.FormsSample
@@ -23,16 +24,14 @@ namespace SkiaScene.FormsSample
             InitializeComponent();
         }
 
-        private void OnTouch(object sender, SKTouchEventArgs args)
+        private void OnTouchEffectAction(object sender, TouchActionEventArgs args)
         {
-            //TODO
-            return;
             SKPoint pt = args.Location;
             SKPoint point =
                 new SKPoint((float)(canvasView.CanvasSize.Width * pt.X / canvasView.Width),
                             (float)(canvasView.CanvasSize.Height * pt.Y / canvasView.Height));
 
-            var actionType = MapToTouchActionType(args.ActionType);
+            var actionType = args.Type;
 
             switch (actionType)
             {
@@ -122,6 +121,7 @@ namespace SkiaScene.FormsSample
             {
                 _scene = new SKScene(new TestScenereRenderer(), canvasView.CanvasSize);
                 _touchManipulationManger = new TouchManipulationManager(_scene);
+                _touchManipulationManger.TouchManipulationMode = TouchManipulationMode.ScaleRotate;
 
             }
             SKImageInfo info = args.Info;
@@ -133,27 +133,6 @@ namespace SkiaScene.FormsSample
         private SKPoint GetCanvasPointFromScalePoint(Point scalePoint)
         {
             return new SKPoint((float)(scalePoint.X * canvasView.CanvasSize.Width), (float)(scalePoint.Y * canvasView.CanvasSize.Height));
-        }
-
-        private TouchActionType MapToTouchActionType(SKTouchAction touchAction)
-        {
-            switch (touchAction)
-            {
-                case SKTouchAction.Entered:
-                    return TouchActionType.Entered;
-                case SKTouchAction.Pressed:
-                    return TouchActionType.Pressed;
-                case SKTouchAction.Moved:
-                    return TouchActionType.Moved;
-                case SKTouchAction.Released:
-                    return TouchActionType.Released;
-                case SKTouchAction.Cancelled:
-                    return TouchActionType.Cancelled;
-                case SKTouchAction.Exited:
-                    return TouchActionType.Exited;
-                default:
-                    throw new ArgumentException(nameof(touchAction));
-            }
         }
     }
 }

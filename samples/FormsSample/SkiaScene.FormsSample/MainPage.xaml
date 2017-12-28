@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SkiaScene.FormsSample"
              x:Class="SkiaScene.FormsSample.MainPage"
+             xmlns:tt="clr-namespace:SkiaScene.Forms.NetStandard;assembly=SkiaScene.Forms.NetStandard"
              xmlns:views="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms">
 
     <Grid
@@ -10,18 +11,17 @@
         <views:SKCanvasView 
         x:Name="canvasView" 
         PaintSurface="OnPaint" 
-        Touch="OnTouch"
         EnableTouchEvents="True">
-            <views:SKCanvasView.GestureRecognizers>
+            <!--<views:SKCanvasView.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnTap" />
                 <PanGestureRecognizer PanUpdated="OnPan" />
                 <PinchGestureRecognizer PinchUpdated="OnPinch" />
-            </views:SKCanvasView.GestureRecognizers>
+            </views:SKCanvasView.GestureRecognizers>-->
         </views:SKCanvasView>
-        <!--<Grid.Effects>
+        <Grid.Effects>
             <tt:TouchEffect Capture="True"
                                 TouchAction="OnTouchEffectAction" />
-        </Grid.Effects>-->
+        </Grid.Effects>
     </Grid>
 
 

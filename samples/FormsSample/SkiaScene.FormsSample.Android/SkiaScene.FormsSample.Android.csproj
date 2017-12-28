@@ -83,6 +83,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\source\SkiaScene.Forms.Droid\SkiaScene.Forms.Droid.csproj">
+      <Project>{fe5c492f-9c0f-44f4-845a-2033f1e51edd}</Project>
+      <Name>SkiaScene.Forms.Droid</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SkiaScene.FormsSample\SkiaScene.FormsSample.csproj">
       <Project>{93935A28-B082-420A-82B7-2731DA250331}</Project>
       <Name>SkiaScene.FormsSample</Name>
