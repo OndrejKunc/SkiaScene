@@ -12,11 +12,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)ISKScene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ISKSceneRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITouchManipulationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ITouchManipulationRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SKPointExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SKScene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TouchManipulationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TouchManipulationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TouchManipulationMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TouchManipulationRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TouchTracking\TouchActionEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TouchTracking\TouchActionEventHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TouchTracking\TouchActionType.cs" />
