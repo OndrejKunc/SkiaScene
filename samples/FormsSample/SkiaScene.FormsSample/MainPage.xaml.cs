@@ -5,17 +5,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using SkiaScene.TouchTracking;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace SkiaScene.FormsSample
 {
     public partial class MainPage : ContentPage
     {
         //Prevent glitch when only one finger is released after pinch and pan is immediatelly started
-        private DateTime lastPinchCompleted = DateTime.MinValue;
         private ISKScene _scene;
         private ITouchManipulationManager _touchManipulationManger;
-        private double previousPanX;
-        private double previousPanY;
+        private TimeSpan _minGestureDuration = TimeSpan.FromMilliseconds(60);
+        private Dictionary<long, DateTime> _lastGestureTime = new Dictionary<long, DateTime>();
 
         List<long> touchIds = new List<long>();
 
@@ -23,7 +23,7 @@ namespace SkiaScene.FormsSample
         {
             InitializeComponent();
         }
-
+        
         private void OnTouchEffectAction(object sender, TouchActionEventArgs args)
         {
             SKPoint viewPoint = args.Location;
@@ -38,11 +38,18 @@ namespace SkiaScene.FormsSample
                 case TouchActionType.Pressed:
                     touchIds.Add(args.Id);
                     _touchManipulationManger.ProcessTouchEvent(args.Id, actionType, point);
+                    _lastGestureTime[args.Id] = DateTime.Now;
                     break;
                 case TouchActionType.Moved:
                     if (touchIds.Contains(args.Id))
                     {
                         _touchManipulationManger.ProcessTouchEvent(args.Id, actionType, point);
+                        var now = DateTime.Now;
+                        if (now - _lastGestureTime[args.Id] < _minGestureDuration)
+                        {
+                            return;
+                        }
+                        _lastGestureTime[args.Id] = now;
                         canvasView.InvalidateSurface();
                     }
                     break;
@@ -51,68 +58,13 @@ namespace SkiaScene.FormsSample
                 case TouchActionType.Cancelled:
                     if (touchIds.Contains(args.Id))
                     {
+                        _lastGestureTime[args.Id] = DateTime.MinValue;
                         _touchManipulationManger.ProcessTouchEvent(args.Id, actionType, point);
                         touchIds.Remove(args.Id);
                         canvasView.InvalidateSurface();
                     }
                     break;
             }
-        }
-
-        private void OnPan(object sender, PanUpdatedEventArgs args)
-        {
-            Debug.WriteLine($"Pan - X:{args.TotalX} Y:{args.TotalY} Status:{args.StatusType}");
-            if (DateTime.Now - lastPinchCompleted < TimeSpan.FromMilliseconds(200))
-            {
-                Debug.WriteLine($"Pan - Ignoring");
-                previousPanX = args.TotalX;
-                previousPanY = args.TotalY;
-                return;
-            }
-            var scale = canvasView.CanvasSize.Width / (float)canvasView.Width;
-            switch (args.StatusType)
-            {
-                case GestureStatus.Started:
-                    previousPanX = 0;
-                    previousPanY = 0;
-                    break;
-                case GestureStatus.Running:
-                    var currentX = (float)(args.TotalX - previousPanX);
-                    var currentY = (float)(args.TotalY - previousPanY);
-                    previousPanX = args.TotalX;
-                    previousPanY = args.TotalY;
-                    var vector = new SKPoint(currentX * scale, currentY * scale);
-                    _scene.MoveByVector(vector);
-                    canvasView.InvalidateSurface();
-                    break;
-                case GestureStatus.Completed:
-                    previousPanX = 0;
-                    previousPanY = 0;
-                    break;
-                case GestureStatus.Canceled:
-                    previousPanX = 0;
-                    previousPanY = 0;
-                    break;
-
-            }
-        }
-
-        private void OnPinch(object sender, PinchGestureUpdatedEventArgs args)
-        {
-            Debug.WriteLine($"Pinch - Scale:{args.Scale} Point:{args.ScaleOrigin} Status:{args.Status}");
-            var viewPoint = GetCanvasPointFromScalePoint(args.ScaleOrigin);
-            var canvasPoint = _scene.GetCanvasPointFromViewPoint(viewPoint);
-            _scene.ZoomByScaleFactor(canvasPoint, (float)args.Scale);
-            canvasView.InvalidateSurface();
-            if (args.Status == GestureStatus.Completed)
-            {
-                lastPinchCompleted = DateTime.Now;
-            }
-        }
-
-        private void OnTap(object sender, EventArgs e)
-        {
-            
         }
 
         private void OnPaint(object sender, SKPaintSurfaceEventArgs args)
@@ -128,11 +80,6 @@ namespace SkiaScene.FormsSample
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
             _scene.Render(canvas);
-        }
-
-        private SKPoint GetCanvasPointFromScalePoint(Point scalePoint)
-        {
-            return new SKPoint((float)(scalePoint.X * canvasView.CanvasSize.Width), (float)(scalePoint.Y * canvasView.CanvasSize.Height));
         }
     }
 }
