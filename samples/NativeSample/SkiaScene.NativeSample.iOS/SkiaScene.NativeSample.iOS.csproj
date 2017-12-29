@@ -118,5 +118,21 @@
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\source\SkiaScene.iOS\SkiaScene.iOS.csproj">
+      <Project>{4dc6a992-335f-4016-9fdf-db6a5cd55892}</Project>
+      <Name>SkiaScene.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\source\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj">
+      <Project>{3c3a5ba2-045f-4a65-bf5d-b2e170d2336b}</Project>
+      <Name>SkiaScene.NetStandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SkiaScene.NativeSample\SkiaScene.NativeSample.csproj">
+      <Project>{3c9bf2e6-f024-40d9-9995-5edda2c02050}</Project>
+      <Name>SkiaScene.NativeSample</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
