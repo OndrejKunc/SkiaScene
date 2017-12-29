@@ -14,7 +14,6 @@ namespace SkiaScene.NativeSample.Droid
         private ITouchManipulationManager _touchManipulationManager;
         private ITouchManipulationRenderer _touchManipulationRenderer;
         private SKCanvasView _canvasView;
-        private LinearLayout _rootLayout;
         private TouchHandler _touchHandler;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -29,9 +28,8 @@ namespace SkiaScene.NativeSample.Droid
             _canvasView = FindViewById<SKCanvasView>(Resource.Id.canvasView);
 
             _canvasView.PaintSurface += OnPaint;
-            _rootLayout = FindViewById<LinearLayout>(Resource.Id.rootLayout);
             _touchHandler = new TouchHandler();
-            _touchHandler.RegisterEvents(_rootLayout);
+            _touchHandler.RegisterEvents(_canvasView);
             _touchHandler.TouchAction += OnTouch;
         }
 

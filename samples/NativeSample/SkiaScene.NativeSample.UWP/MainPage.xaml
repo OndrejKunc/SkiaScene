@@ -5,11 +5,12 @@
     xmlns:local="using:SkiaScene.NativeSample.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:SkiaSharp.Views.UWP"
     mc:Ignorable="d">
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="myButton" 
-                Content="Hello World, Click Me"
-                HorizontalAlignment="Stretch"/>
+        <uwp:SKXamlCanvas 
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            x:Name="CanvasView"/>
     </Grid>
 </Page>

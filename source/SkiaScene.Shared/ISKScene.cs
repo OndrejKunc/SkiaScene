@@ -6,7 +6,7 @@ namespace SkiaScene
     {
         void Render(SKCanvas canvas);
         void Zoom(SKPoint point, float scale);
-        void ZoomByScaleFactor(SKPoint point, float scaleDelta);
+        void ZoomByScaleFactor(SKPoint point, float scaleFactor);
         void MoveToPoint(SKPoint point);
         void MoveByVector(SKPoint vector);
         void Rotate(SKPoint point, float radians);

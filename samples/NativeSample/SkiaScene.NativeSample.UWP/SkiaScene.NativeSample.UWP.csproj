@@ -135,6 +135,20 @@
       <Version>1.59.3</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\source\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj">
+      <Project>{3c3a5ba2-045f-4a65-bf5d-b2e170d2336b}</Project>
+      <Name>SkiaScene.NetStandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\source\SkiaScene.UWP\SkiaScene.UWP.csproj">
+      <Project>{3365091c-7c2d-487d-b803-68edfe8b73f6}</Project>
+      <Name>SkiaScene.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SkiaScene.NativeSample\SkiaScene.NativeSample.csproj">
+      <Project>{3c9bf2e6-f024-40d9-9995-5edda2c02050}</Project>
+      <Name>SkiaScene.NativeSample</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

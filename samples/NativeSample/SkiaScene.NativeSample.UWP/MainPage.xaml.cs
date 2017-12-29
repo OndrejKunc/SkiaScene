@@ -1,34 +1,76 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using SkiaScene.UWP;
+using SkiaSharp;
+using SkiaSharp.Views.UWP;
+using System;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace SkiaScene.NativeSample.UWP
 {
     public sealed partial class MainPage : Page
     {
-		int count = 1;
+        private ISKScene _scene;
+        private ITouchManipulationManager _touchManipulationManager;
+        private ITouchManipulationRenderer _touchManipulationRenderer;
+        private TouchHandler _touchHandler;
 
-		public MainPage()
+
+        public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-			myButton.Click += (s, e) =>
-			{
-				myButton.Content = $"{count++} clicks!";
-			};
+            CanvasView.PaintSurface += OnPaint;
+            _touchHandler = new TouchHandler();
+            _touchHandler.RegisterEvents(CanvasView);
+            _touchHandler.TouchAction += OnTouch;
+            CanvasView.PointerWheelChanged += OnPointerWheelChanged;
         }
+
+        private void OnTouch(object sender, TouchTracking.TouchActionEventArgs args)
+        {
+            SKPoint viewPoint = args.Location;
+            SKPoint point =
+                new SKPoint((float)(CanvasView.CanvasSize.Width * viewPoint.X / CanvasView.ActualWidth),
+                            (float)(CanvasView.CanvasSize.Height * viewPoint.Y / CanvasView.ActualHeight));
+
+            var actionType = args.Type;
+            _touchManipulationRenderer.Render(point, actionType, args.Id);
+        }
+
+        private void InitSceneObjects()
+        {
+            _scene = new SKScene(new TestScenereRenderer(), CanvasView.CanvasSize);
+            _touchManipulationManager = new TouchManipulationManager(_scene)
+            {
+                TouchManipulationMode = TouchManipulationMode.ScaleRotate,
+            };
+            _touchManipulationRenderer = new TouchManipulationRenderer(_touchManipulationManager, () => CanvasView.Invalidate())
+            {
+                MaxFramesPerSecond = 30,
+            };
+        }
+
+        private void OnPaint(object sender, SKPaintSurfaceEventArgs args)
+        {
+            if (_scene == null)
+            {
+                InitSceneObjects();
+
+            }
+            SKImageInfo info = args.Info;
+            SKSurface surface = args.Surface;
+            SKCanvas canvas = surface.Canvas;
+            _scene.Render(canvas);
+        }
+
+        private void OnPointerWheelChanged(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            const float zoomFactor = 1.1f;
+            var wheelDelta = e.GetCurrentPoint(CanvasView).Properties.MouseWheelDelta;
+            float currentZoomFactor = wheelDelta > 0 ? zoomFactor : 1 / zoomFactor;
+
+            _scene.ZoomByScaleFactor(_scene.GetCenter(), currentZoomFactor);
+            CanvasView.Invalidate();
+        }
+
     }
 }
