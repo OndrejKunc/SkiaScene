@@ -8,7 +8,7 @@
         {
         }
 
-        public bool Capture { set; get; }
+        public bool Capture { set; get; } = true;
 
         public void OnTouchAction(TElement element, TouchActionEventArgs args)
         {

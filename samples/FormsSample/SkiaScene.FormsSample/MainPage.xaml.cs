@@ -8,7 +8,7 @@ namespace SkiaScene.FormsSample
     public partial class MainPage : ContentPage
     {
         private ISKScene _scene;
-        private ITouchManipulationManager _touchManipulationManger;
+        private ITouchManipulationManager _touchManipulationManager;
         private ITouchManipulationRenderer _touchManipulationRenderer;
 
         public MainPage()
@@ -20,11 +20,11 @@ namespace SkiaScene.FormsSample
         private void InitSceneObjects()
         {
             _scene = new SKScene(new TestScenereRenderer(), canvasView.CanvasSize);
-            _touchManipulationManger = new TouchManipulationManager(_scene)
+            _touchManipulationManager = new TouchManipulationManager(_scene)
             {
                 TouchManipulationMode = TouchManipulationMode.ScaleRotate
             };
-            _touchManipulationRenderer = new TouchManipulationRenderer(_touchManipulationManger, () => canvasView.InvalidateSurface())
+            _touchManipulationRenderer = new TouchManipulationRenderer(_touchManipulationManager, () => canvasView.InvalidateSurface())
             {
                 MaxFramesPerSecond = 100,
             };

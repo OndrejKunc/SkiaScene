@@ -1,5 +1,6 @@
 ﻿using Android.Content;
 using Android.Util;
+using System;
 
 namespace SkiaScene.Droid
 {
@@ -24,6 +25,13 @@ namespace SkiaScene.Droid
             {
                 _displayDensity = metrics.Density;
             }
+        }
+
+        public static float ToPixels(this Context self, double dp)
+        {
+            SetupMetrics(self);
+
+            return (float)Math.Round(dp * _displayDensity);
         }
     }
 }

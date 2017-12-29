@@ -180,7 +180,6 @@ namespace SkiaScene.Droid
             double y = pointerLocation.Y - _twoIntArray[1];
             SKPoint point = new SKPoint((float)_fromPixels(x), (float)_fromPixels(y));
 
-
             // Call the method
             OnTouchAction(touchEffect._view,
                 new TouchActionEventArgs(id, actionType, point, isInContact));
