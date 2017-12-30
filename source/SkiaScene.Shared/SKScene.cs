@@ -9,10 +9,14 @@ namespace SkiaScene
         protected SKMatrix Matrix = SKMatrix.MakeIdentity();
         protected readonly SKPoint DefaultCenter;
 
+        protected const float DefaultMaxScale = 8;
+        protected const float DefaultMinScale = 1f / 8;
+
         public SKScene(ISKSceneRenderer sceneRenderer, SKSize canvasSize)
         {
             _sceneRenderer = sceneRenderer;
             DefaultCenter = new SKPoint(canvasSize.Width / 2, canvasSize.Height / 2);
+            CenterBoundary = new SKRect(-canvasSize.Width, -canvasSize.Height, 2*canvasSize.Width, 2*canvasSize.Height);
         }
 
         public void Render(SKCanvas canvas)
@@ -24,6 +28,11 @@ namespace SkiaScene
             _sceneRenderer.Render(canvas, angleInRadians, center, scale);
         }
 
+        public float MaxScale { get; set; } = DefaultMaxScale;
+        public float MinScale { get; set; } = DefaultMinScale;
+        public SKRect CenterBoundary { get; set; }
+        public bool IgnoreCenterBoundary { get; set; }
+
         public void MoveByVector(SKPoint vector)
         {
             SKMatrix invertedMatrix;
@@ -33,6 +42,16 @@ namespace SkiaScene
             }
             var resultPoint = invertedMatrix.MapVector(vector.X, vector.Y);
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeTranslation(resultPoint.X, resultPoint.Y));
+            if (IgnoreCenterBoundary)
+            {
+                return;
+            }
+            var center = GetCenter();
+            if (!CenterBoundary.Contains(center))
+            {
+                //rollback
+                SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeTranslation(-resultPoint.X, -resultPoint.Y));
+            }
         }
         
         public void MoveToPoint(SKPoint point)
@@ -65,6 +84,18 @@ namespace SkiaScene
         {
             var currentScale = GetScale();
             currentScale *= scaleFactor;
+            if (currentScale < MinScale || currentScale > MaxScale)
+            {
+                return;
+            }
+            if (!IgnoreCenterBoundary)
+            {
+                var center = GetCenter();
+                if (!CenterBoundary.Contains(center))
+                {
+                    return;
+                }
+            }
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeScale(scaleFactor, scaleFactor, point.X, point.Y));
         }
 

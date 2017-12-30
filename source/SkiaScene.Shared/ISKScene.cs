@@ -15,5 +15,9 @@ namespace SkiaScene
         SKPoint GetCenter();
         float GetAngleInRadians();
         float GetScale();
+        float MaxScale { get; set; }
+        float MinScale { get; set; }
+        SKRect CenterBoundary { get; set; }
+        bool IgnoreCenterBoundary { get; set; }
     }
 }

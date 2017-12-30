@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SkiaScene.NativeSample
 {
-    public class TestScenereRenderer : ISKSceneRenderer
+    public class TestSceneRenderer : ISKSceneRenderer
     {
         private const int Columns = 5;
         private const int Rows = 10;

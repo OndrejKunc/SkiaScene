@@ -47,7 +47,7 @@ namespace SkiaScene.NativeSample.iOS
 
         private void InitSceneObjects()
         {
-            _scene = new SKScene(new TestScenereRenderer(), _canvasView.CanvasSize);
+            _scene = new SKScene(new TestSceneRenderer(), _canvasView.CanvasSize);
             _touchManipulationManager = new TouchManipulationManager(_scene)
             {
                 TouchManipulationMode = TouchManipulationMode.ScaleRotate,
