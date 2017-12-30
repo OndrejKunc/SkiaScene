@@ -4,8 +4,6 @@
     <TargetFramework>netstandard1.3</TargetFramework>
   </PropertyGroup>
 
-  <Import Project="..\SkiaScene.Shared\SkiaScene.Shared.projitems" Label="Shared" />
-
   <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="1.59.3" />
   </ItemGroup>

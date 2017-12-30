@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\SkiaScene\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj" />
     <ProjectReference Include="..\..\..\source\SkiaScene\SkiaScene.TouchManipulation\SkiaScene.TouchManipulation.csproj" />
+    <ProjectReference Include="..\..\..\source\SkiaScene\SkiaScene\SkiaScene.csproj" />
     <ProjectReference Include="..\..\..\source\TouchTracking\TouchTracking.Forms\TouchTracking.Forms.csproj" />
     <ProjectReference Include="..\..\..\source\TouchTracking\TouchTracking\TouchTracking.csproj" />
   </ItemGroup>

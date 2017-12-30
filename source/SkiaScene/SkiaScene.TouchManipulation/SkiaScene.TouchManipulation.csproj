@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\TouchTracking\TouchTracking\TouchTracking.csproj" />
-    <ProjectReference Include="..\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj" />
+    <ProjectReference Include="..\SkiaScene\SkiaScene.csproj" />
   </ItemGroup>
 
 </Project>

@@ -122,13 +122,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\SkiaScene\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj">
-      <Project>{24c911f6-9a92-4843-9cf0-37f0533e7e6e}</Project>
-      <Name>SkiaScene.NetStandard</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\source\SkiaScene\SkiaScene.TouchManipulation\SkiaScene.TouchManipulation.csproj">
       <Project>{116d9654-8c74-439c-8228-0b5d0c9d8369}</Project>
       <Name>SkiaScene.TouchManipulation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\source\SkiaScene\SkiaScene\SkiaScene.csproj">
+      <Project>{8418cf73-9226-4bb5-962e-7a4f25b61c2c}</Project>
+      <Name>SkiaScene</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\source\TouchTracking\TouchTracking.iOS\TouchTracking.iOS.csproj">
       <Project>{4dc6a992-335f-4016-9fdf-db6a5cd55892}</Project>

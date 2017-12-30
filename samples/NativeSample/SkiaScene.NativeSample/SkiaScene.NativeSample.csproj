@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\SkiaScene\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj" />
+    <ProjectReference Include="..\..\..\source\SkiaScene\SkiaScene\SkiaScene.csproj" />
   </ItemGroup>
 
 </Project>
