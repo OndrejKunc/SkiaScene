@@ -5,12 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SkiaSharp" Version="1.59.3" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\TouchTracking\TouchTracking\TouchTracking.csproj" />
     <ProjectReference Include="..\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj" />
-    <ProjectReference Include="..\TouchTracking\TouchTracking.csproj" />
   </ItemGroup>
 
 </Project>

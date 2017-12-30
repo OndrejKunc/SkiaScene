@@ -119,16 +119,16 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SkiaScene.Forms.NetStandard\TouchTracking.Forms.csproj">
-      <Project>{36757e1d-10af-4600-a565-40e46abfe8a5}</Project>
+    <ProjectReference Include="..\TouchTracking.Forms\TouchTracking.Forms.csproj">
+      <Project>{bd5b7df3-4b8b-45a5-adf7-db4a7c8a31b7}</Project>
       <Name>TouchTracking.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SkiaScene.UWP\TouchTracking.UWP.csproj">
+    <ProjectReference Include="..\TouchTracking.UWP\TouchTracking.UWP.csproj">
       <Project>{3365091c-7c2d-487d-b803-68edfe8b73f6}</Project>
       <Name>TouchTracking.UWP</Name>
     </ProjectReference>
     <ProjectReference Include="..\TouchTracking\TouchTracking.csproj">
-      <Project>{697191d8-ae56-46a9-b0a4-6aafd4b0cdd3}</Project>
+      <Project>{9dca945e-39d0-420c-ad0a-db668d0b9a00}</Project>
       <Name>TouchTracking</Name>
     </ProjectReference>
   </ItemGroup>
