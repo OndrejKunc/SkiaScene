@@ -1,8 +1,8 @@
-﻿using SkiaScene.iOS;
+﻿using SkiaScene.TouchManipulation;
 using SkiaSharp;
 using SkiaSharp.Views.iOS;
 using System;
-
+using TouchTracking.iOS;
 using UIKit;
 
 namespace SkiaScene.NativeSample.iOS
@@ -36,7 +36,7 @@ namespace SkiaScene.NativeSample.iOS
 
         private void OnTouch(object sender, TouchTracking.TouchActionEventArgs args)
         {
-            SKPoint viewPoint = args.Location;
+            var viewPoint = args.Location;
             SKPoint point =
                 new SKPoint((float)(_canvasView.CanvasSize.Width * viewPoint.X / _canvasView.Frame.Width),
                             (float)(_canvasView.CanvasSize.Height * viewPoint.Y / _canvasView.Frame.Height));

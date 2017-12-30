@@ -1,7 +1,8 @@
-﻿using SkiaScene.UWP;
+﻿using SkiaScene.TouchManipulation;
 using SkiaSharp;
 using SkiaSharp.Views.UWP;
 using System;
+using TouchTracking.UWP;
 using Windows.UI.Xaml.Controls;
 
 namespace SkiaScene.NativeSample.UWP
@@ -27,7 +28,7 @@ namespace SkiaScene.NativeSample.UWP
 
         private void OnTouch(object sender, TouchTracking.TouchActionEventArgs args)
         {
-            SKPoint viewPoint = args.Location;
+            var viewPoint = args.Location;
             SKPoint point =
                 new SKPoint((float)(CanvasView.CanvasSize.Width * viewPoint.X / CanvasView.ActualWidth),
                             (float)(CanvasView.CanvasSize.Height * viewPoint.Y / CanvasView.ActualHeight));

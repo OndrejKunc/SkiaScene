@@ -3,7 +3,8 @@ using Android.Widget;
 using Android.OS;
 using SkiaSharp.Views.Android;
 using SkiaSharp;
-using SkiaScene.Droid;
+using SkiaScene.TouchManipulation;
+using TouchTracking.Droid;
 
 namespace SkiaScene.NativeSample.Droid
 {
@@ -35,7 +36,7 @@ namespace SkiaScene.NativeSample.Droid
 
         private void OnTouch(object sender, TouchTracking.TouchActionEventArgs args)
         {
-            SKPoint viewPoint = args.Location;
+            var viewPoint = args.Location;
             var pixelPoint = new SKPoint(this.ToPixels(viewPoint.X), this.ToPixels(viewPoint.Y));
             SKPoint point =
                 new SKPoint((float)(_canvasView.CanvasSize.Width * pixelPoint.X / _canvasView.Width),

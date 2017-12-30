@@ -1,5 +1,4 @@
 ﻿using SkiaSharp;
-using System.IO;
 using System.Reflection;
 
 namespace SkiaScene.NativeSample

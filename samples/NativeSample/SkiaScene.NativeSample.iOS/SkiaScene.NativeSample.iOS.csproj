@@ -122,15 +122,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\SkiaScene.iOS\SkiaScene.iOS.csproj">
+    <ProjectReference Include="..\..\..\source\SkiaScene\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj">
+      <Project>{24c911f6-9a92-4843-9cf0-37f0533e7e6e}</Project>
+      <Name>SkiaScene.NetStandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\source\SkiaScene\SkiaScene.TouchManipulation\SkiaScene.TouchManipulation.csproj">
+      <Project>{116d9654-8c74-439c-8228-0b5d0c9d8369}</Project>
+      <Name>SkiaScene.TouchManipulation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\source\TouchTracking\TouchTracking.iOS\TouchTracking.iOS.csproj">
       <Project>{4dc6a992-335f-4016-9fdf-db6a5cd55892}</Project>
-      <Name>SkiaScene.iOS</Name>
+      <Name>TouchTracking.iOS</Name>
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\source\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj">
-      <Project>{3c3a5ba2-045f-4a65-bf5d-b2e170d2336b}</Project>
-      <Name>SkiaScene.NetStandard</Name>
+    <ProjectReference Include="..\..\..\source\TouchTracking\TouchTracking\TouchTracking.csproj">
+      <Project>{9de19ca3-5a46-46c7-a99f-acc2a08a3c69}</Project>
+      <Name>TouchTracking</Name>
     </ProjectReference>
     <ProjectReference Include="..\SkiaScene.NativeSample\SkiaScene.NativeSample.csproj">
       <Project>{3c9bf2e6-f024-40d9-9995-5edda2c02050}</Project>
