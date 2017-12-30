@@ -38,10 +38,10 @@ namespace SkiaScene.NativeSample.UWP
 
         private void InitSceneObjects()
         {
-            _scene = new SKScene(new TestScenereRenderer(), CanvasView.CanvasSize);
+            _scene = new SKScene(new SvgSceneRenderer(), CanvasView.CanvasSize);
             _touchManipulationManager = new TouchManipulationManager(_scene)
             {
-                TouchManipulationMode = TouchManipulationMode.ScaleRotate,
+                TouchManipulationMode = TouchManipulationMode.IsotropicScale,
             };
             _touchManipulationRenderer = new TouchManipulationRenderer(_touchManipulationManager, () => CanvasView.Invalidate())
             {
