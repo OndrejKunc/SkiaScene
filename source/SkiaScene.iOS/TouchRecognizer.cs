@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using CoreGraphics;
 using Foundation;
-using SkiaScene.TouchTracking;
-using SkiaSharp;
+using TouchTracking;
 using UIKit;
 
-namespace SkiaScene.iOS
+namespace TouchTracking.iOS
 {
     class TouchRecognizer : UIGestureRecognizer
     {
@@ -153,7 +152,7 @@ namespace SkiaScene.iOS
         {
             // Convert touch location to Xamarin.Forms Point value
             CGPoint cgPoint = touch.LocationInView(recognizer.View);
-            SKPoint xfPoint = new SKPoint((float)cgPoint.X, (float)cgPoint.Y);
+            TouchTrackingPoint xfPoint = new TouchTrackingPoint((float)cgPoint.X, (float)cgPoint.Y);
 
             // Get the method to call for firing events
             Action<UIView, TouchActionEventArgs> onTouchAction = recognizer._touchHandler.OnTouchAction;

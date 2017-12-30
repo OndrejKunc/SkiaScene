@@ -1,4 +1,4 @@
-﻿namespace SkiaScene.TouchTracking
+﻿namespace TouchTracking
 {
     public enum TouchActionType
     {

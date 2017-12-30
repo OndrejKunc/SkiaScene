@@ -1,13 +1,12 @@
-﻿using SkiaScene.TouchTracking;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace SkiaScene.Forms.NetStandard
+namespace TouchTracking.Forms
 {
     public class TouchEffect : RoutingEffect
     {
         public event TouchActionEventHandler TouchAction;
 
-        public TouchEffect() : base("SkiaScene.TouchEffect")
+        public TouchEffect() : base("TouchTracking.TouchEffect")
         {
         }
 

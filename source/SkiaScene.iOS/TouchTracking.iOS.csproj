@@ -8,9 +8,9 @@
     <ProjectGuid>{4DC6A992-335F-4016-9FDF-DB6A5CD55892}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>SkiaScene.iOS</RootNamespace>
+    <RootNamespace>TouchTracking.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>SkiaScene.iOS</AssemblyName>
+    <AssemblyName>TouchTracking.iOS</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,9 +31,6 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SkiaSharp, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\..\samples\FormsSample\packages\SkiaSharp.1.59.3\lib\XamariniOS\SkiaSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -48,12 +45,9 @@
     <Compile Include="TouchRecognizer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj">
-      <Project>{c4a9730f-4f39-47fb-bff4-f8da4898d7a7}</Project>
-      <Name>SkiaScene.NetStandard</Name>
+    <ProjectReference Include="..\TouchTracking\TouchTracking.csproj">
+      <Project>{697191d8-ae56-46a9-b0a4-6aafd4b0cdd3}</Project>
+      <Name>TouchTracking</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

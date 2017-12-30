@@ -1,7 +1,7 @@
-﻿using SkiaScene.TouchTracking;
+﻿using TouchTracking;
 using UIKit;
 
-namespace SkiaScene.iOS
+namespace TouchTracking.iOS
 {
     public class TouchHandler : TouchHandlerBase<UIView>
     {

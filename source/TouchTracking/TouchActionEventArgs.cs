@@ -1,11 +1,10 @@
-﻿using SkiaSharp;
-using System;
+﻿using System;
 
-namespace SkiaScene.TouchTracking
+namespace TouchTracking
 {
     public class TouchActionEventArgs : EventArgs
     {
-        public TouchActionEventArgs(long id, TouchActionType type, SKPoint location, bool isInContact)
+        public TouchActionEventArgs(long id, TouchActionType type, TouchTrackingPoint location, bool isInContact)
         {
             Id = id;
             Type = type;
@@ -17,7 +16,7 @@ namespace SkiaScene.TouchTracking
 
         public TouchActionType Type { private set; get; }
 
-        public SKPoint Location { private set; get; }
+        public TouchTrackingPoint Location { private set; get; }
 
         public bool IsInContact { private set; get; }
     }

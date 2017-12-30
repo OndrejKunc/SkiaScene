@@ -1,9 +1,9 @@
-﻿using SkiaScene.TouchTracking;
+﻿using TouchTracking;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
 
-namespace SkiaScene
+namespace SkiaScene.TouchManipulation
 {
     //Inspiration from https://developer.xamarin.com/guides/xamarin-forms/advanced/skiasharp/transforms/touch/
     public class TouchManipulationManager : ITouchManipulationManager

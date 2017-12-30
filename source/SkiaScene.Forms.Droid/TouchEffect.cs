@@ -1,17 +1,17 @@
-﻿using SkiaScene.Droid;
-using System.Linq;
+﻿using System.Linq;
+using TouchTracking.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ResolutionGroupName("SkiaScene")]
-[assembly: ExportEffect(typeof(SkiaScene.Forms.Droid.TouchEffect), "TouchEffect")]
-namespace SkiaScene.Forms.Droid
+[assembly: ResolutionGroupName("TouchTracking")]
+[assembly: ExportEffect(typeof(TouchTracking.Forms.Droid.TouchEffect), "TouchEffect")]
+namespace TouchTracking.Forms.Droid
 {
     public class TouchEffect : PlatformEffect
     {
         private TouchHandler _touchHandler;
         private Android.Views.View _view;
-        private SkiaScene.Forms.NetStandard.TouchEffect _touchEffect;
+        private TouchTracking.Forms.TouchEffect _touchEffect;
 
         protected override void OnAttached()
         {
@@ -19,7 +19,7 @@ namespace SkiaScene.Forms.Droid
 
             // Get access to the TouchEffect class in the PCL
             _touchEffect =
-                (SkiaScene.Forms.NetStandard.TouchEffect)Element.Effects.FirstOrDefault(e => e is SkiaScene.Forms.NetStandard.TouchEffect);
+                (TouchTracking.Forms.TouchEffect)Element.Effects.FirstOrDefault(e => e is TouchTracking.Forms.TouchEffect);
 
             if (_touchEffect == null)
             {
@@ -33,7 +33,7 @@ namespace SkiaScene.Forms.Droid
 
         }
 
-        private void TouchHandlerOnTouch(object sender, TouchTracking.TouchActionEventArgs args)
+        private void TouchHandlerOnTouch(object sender, TouchActionEventArgs args)
         {
             _touchEffect.OnTouchAction(sender, args);
         }

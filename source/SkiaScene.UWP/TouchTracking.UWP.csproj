@@ -7,8 +7,8 @@
     <ProjectGuid>{3365091C-7C2D-487D-B803-68EDFE8B73F6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SkiaScene.UWP</RootNamespace>
-    <AssemblyName>SkiaScene.UWP</AssemblyName>
+    <RootNamespace>TouchTracking.UWP</RootNamespace>
+    <AssemblyName>TouchTracking.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.10240.0</TargetPlatformVersion>
@@ -114,14 +114,11 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.4</Version>
     </PackageReference>
-    <PackageReference Include="SkiaSharp">
-      <Version>1.59.3</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj">
-      <Project>{c4a9730f-4f39-47fb-bff4-f8da4898d7a7}</Project>
-      <Name>SkiaScene.NetStandard</Name>
+    <ProjectReference Include="..\TouchTracking\TouchTracking.csproj">
+      <Project>{697191d8-ae56-46a9-b0a4-6aafd4b0cdd3}</Project>
+      <Name>TouchTracking</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

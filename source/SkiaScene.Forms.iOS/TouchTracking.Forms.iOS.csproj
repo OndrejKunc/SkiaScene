@@ -9,9 +9,9 @@
     <ProjectGuid>{CB23ADB2-D164-4C10-B20F-B239E7446731}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>SkiaScene.Forms.iOS</RootNamespace>
+    <RootNamespace>TouchTracking.Forms.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>SkiaScene.Forms.iOS</AssemblyName>
+    <AssemblyName>TouchTracking.Forms.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -62,19 +62,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SkiaScene.Forms.NetStandard\SkiaScene.Forms.NetStandard.csproj">
-      <Project>{56b059fc-ea17-4bc9-ad82-f5fb4b2ae4af}</Project>
-      <Name>SkiaScene.Forms.NetStandard</Name>
+    <ProjectReference Include="..\SkiaScene.Forms.NetStandard\TouchTracking.Forms.csproj">
+      <Project>{36757E1D-10AF-4600-A565-40E46ABFE8A5}</Project>
+      <Name>TouchTracking.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SkiaScene.iOS\SkiaScene.iOS.csproj">
+    <ProjectReference Include="..\SkiaScene.iOS\TouchTracking.iOS.csproj">
       <Project>{4dc6a992-335f-4016-9fdf-db6a5cd55892}</Project>
-      <Name>SkiaScene.iOS</Name>
+      <Name>TouchTracking.iOS</Name>
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
-    <ProjectReference Include="..\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj">
-      <Project>{c4a9730f-4f39-47fb-bff4-f8da4898d7a7}</Project>
-      <Name>SkiaScene.NetStandard</Name>
+    <ProjectReference Include="..\TouchTracking\TouchTracking.csproj">
+      <Project>{697191d8-ae56-46a9-b0a4-6aafd4b0cdd3}</Project>
+      <Name>TouchTracking</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

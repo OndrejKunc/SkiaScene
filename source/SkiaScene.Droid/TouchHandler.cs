@@ -1,11 +1,8 @@
 ﻿using Android.Views;
-using SkiaScene.TouchTracking;
-using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
-namespace SkiaScene.Droid
+namespace TouchTracking.Droid
 {
     public class TouchHandler : TouchHandlerBase<View>
     {
@@ -57,7 +54,7 @@ namespace SkiaScene.Droid
 
 
             senderView.GetLocationOnScreen(_twoIntArray);
-            SKPoint screenPointerCoords = new SKPoint(_twoIntArray[0] + motionEvent.GetX(pointerIndex),
+            TouchTrackingPoint screenPointerCoords = new TouchTrackingPoint(_twoIntArray[0] + motionEvent.GetX(pointerIndex),
                                                   _twoIntArray[1] + motionEvent.GetY(pointerIndex));
 
 
@@ -83,7 +80,7 @@ namespace SkiaScene.Droid
                         {
                             senderView.GetLocationOnScreen(_twoIntArray);
 
-                            screenPointerCoords = new SKPoint(_twoIntArray[0] + motionEvent.GetX(pointerIndex),
+                            screenPointerCoords = new TouchTrackingPoint(_twoIntArray[0] + motionEvent.GetX(pointerIndex),
                                                             _twoIntArray[1] + motionEvent.GetY(pointerIndex));
 
                             FireEvent(this, id, TouchActionType.Moved, screenPointerCoords, true);
@@ -135,7 +132,7 @@ namespace SkiaScene.Droid
             }
         }
 
-        private void CheckForBoundaryHop(int id, SKPoint pointerLocation)
+        private void CheckForBoundaryHop(int id, TouchTrackingPoint pointerLocation)
         {
             TouchHandler touchEffectHit = null;
 
@@ -150,7 +147,7 @@ namespace SkiaScene.Droid
                 {
                     continue;
                 }
-                SKRect viewRect = new SKRect(_twoIntArray[0], _twoIntArray[1], view.Width, view.Height);
+                TouchTrackingRect viewRect = new TouchTrackingRect(_twoIntArray[0], _twoIntArray[1], view.Width, view.Height);
 
                 if (viewRect.Contains(pointerLocation))
                 {
@@ -172,13 +169,13 @@ namespace SkiaScene.Droid
             }
         }
 
-        private void FireEvent(TouchHandler touchEffect, int id, TouchActionType actionType, SKPoint pointerLocation, bool isInContact)
+        private void FireEvent(TouchHandler touchEffect, int id, TouchActionType actionType, TouchTrackingPoint pointerLocation, bool isInContact)
         {
             // Get the location of the pointer within the view
             touchEffect._view.GetLocationOnScreen(_twoIntArray);
             double x = pointerLocation.X - _twoIntArray[0];
             double y = pointerLocation.Y - _twoIntArray[1];
-            SKPoint point = new SKPoint((float)_fromPixels(x), (float)_fromPixels(y));
+            TouchTrackingPoint point = new TouchTrackingPoint((float)_fromPixels(x), (float)_fromPixels(y));
 
             // Call the method
             OnTouchAction(touchEffect._view,

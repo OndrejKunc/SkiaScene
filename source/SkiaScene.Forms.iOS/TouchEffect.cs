@@ -1,18 +1,18 @@
-﻿using SkiaScene.iOS;
-using System.Linq;
+﻿using System.Linq;
+using TouchTracking.iOS;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ResolutionGroupName("SkiaScene")]
-[assembly: ExportEffect(typeof(SkiaScene.Forms.iOS.TouchEffect), "TouchEffect")]
-namespace SkiaScene.Forms.iOS
+[assembly: ResolutionGroupName("TouchTracking")]
+[assembly: ExportEffect(typeof(TouchTracking.Forms.iOS.TouchEffect), "TouchEffect")]
+namespace TouchTracking.Forms.iOS
 {
     public class TouchEffect : PlatformEffect
     {
         private TouchHandler _touchHandler;
         private UIView _view;
-        private SkiaScene.Forms.NetStandard.TouchEffect _touchEffect;
+        private TouchTracking.Forms.TouchEffect _touchEffect;
 
         protected override void OnAttached()
         {
@@ -20,7 +20,7 @@ namespace SkiaScene.Forms.iOS
 
             // Get access to the TouchEffect class in the PCL
             _touchEffect =
-                (SkiaScene.Forms.NetStandard.TouchEffect)Element.Effects.FirstOrDefault(e => e is SkiaScene.Forms.NetStandard.TouchEffect);
+                (TouchTracking.Forms.TouchEffect)Element.Effects.FirstOrDefault(e => e is TouchTracking.Forms.TouchEffect);
 
             if (_touchEffect == null)
             {

@@ -1,4 +1,4 @@
-﻿namespace SkiaScene
+﻿namespace SkiaScene.TouchManipulation
 {
     public enum TouchManipulationMode
     {

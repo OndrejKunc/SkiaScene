@@ -1,10 +1,8 @@
-﻿using SkiaScene.TouchTracking;
-using SkiaSharp;
-using Windows.UI.Input;
+﻿using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace SkiaScene.UWP
+namespace TouchTracking.UWP
 {
     public class TouchHandler : TouchHandlerBase<FrameworkElement>
     {
@@ -83,7 +81,7 @@ namespace SkiaScene.UWP
 
             OnTouchAction(_frameworkElement, new TouchActionEventArgs(args.Pointer.PointerId,
                                                             touchActionType,
-                                                            new SKPoint((float)windowsPoint.X, (float)windowsPoint.Y),
+                                                            new TouchTrackingPoint((float)windowsPoint.X, (float)windowsPoint.Y),
                                                             args.Pointer.IsInContact));
         }
     }

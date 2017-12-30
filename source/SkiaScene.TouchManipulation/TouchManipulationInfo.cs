@@ -1,6 +1,6 @@
 ﻿using SkiaSharp;
 
-namespace SkiaScene
+namespace SkiaScene.TouchManipulation
 {
     public class TouchManipulationInfo
     {

@@ -1,7 +1,7 @@
-﻿using SkiaScene.TouchTracking;
+﻿using TouchTracking;
 using SkiaSharp;
 
-namespace SkiaScene
+namespace SkiaScene.TouchManipulation
 {
     public interface ITouchManipulationManager
     {

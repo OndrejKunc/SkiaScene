@@ -1,9 +1,9 @@
-﻿using SkiaScene.TouchTracking;
+﻿using TouchTracking;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
 
-namespace SkiaScene
+namespace SkiaScene.TouchManipulation
 {
     public class TouchManipulationRenderer : ITouchManipulationRenderer
     {

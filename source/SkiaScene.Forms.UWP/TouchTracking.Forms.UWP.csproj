@@ -7,8 +7,8 @@
     <ProjectGuid>{75F38D2D-C200-4842-9CB0-BCDD182838D2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SkiaScene.Forms.UWP</RootNamespace>
-    <AssemblyName>SkiaScene.Forms.UWP</AssemblyName>
+    <RootNamespace>TouchTracking.Forms.UWP</RootNamespace>
+    <AssemblyName>TouchTracking.Forms.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.10240.0</TargetPlatformVersion>
@@ -119,17 +119,17 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SkiaScene.Forms.NetStandard\SkiaScene.Forms.NetStandard.csproj">
-      <Project>{56b059fc-ea17-4bc9-ad82-f5fb4b2ae4af}</Project>
-      <Name>SkiaScene.Forms.NetStandard</Name>
+    <ProjectReference Include="..\SkiaScene.Forms.NetStandard\TouchTracking.Forms.csproj">
+      <Project>{36757e1d-10af-4600-a565-40e46abfe8a5}</Project>
+      <Name>TouchTracking.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj">
-      <Project>{c4a9730f-4f39-47fb-bff4-f8da4898d7a7}</Project>
-      <Name>SkiaScene.NetStandard</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SkiaScene.UWP\SkiaScene.UWP.csproj">
+    <ProjectReference Include="..\SkiaScene.UWP\TouchTracking.UWP.csproj">
       <Project>{3365091c-7c2d-487d-b803-68edfe8b73f6}</Project>
-      <Name>SkiaScene.UWP</Name>
+      <Name>TouchTracking.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TouchTracking\TouchTracking.csproj">
+      <Project>{697191d8-ae56-46a9-b0a4-6aafd4b0cdd3}</Project>
+      <Name>TouchTracking</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

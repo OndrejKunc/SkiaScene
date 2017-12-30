@@ -2,7 +2,7 @@
 using Android.Util;
 using System;
 
-namespace SkiaScene.Droid
+namespace TouchTracking.Droid
 {
     public static class ContextExtensions
     {

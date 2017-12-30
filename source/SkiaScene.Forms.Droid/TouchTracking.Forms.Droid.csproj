@@ -11,7 +11,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SkiaScene.Forms.Droid</RootNamespace>
-    <AssemblyName>SkiaScene.Forms.Droid</AssemblyName>
+    <AssemblyName>TouchTracking.Forms.Droid</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
@@ -119,17 +119,17 @@
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SkiaScene.Droid\SkiaScene.Droid.csproj">
+    <ProjectReference Include="..\SkiaScene.Droid\TouchTracking.Droid.csproj">
       <Project>{0be88b46-bc5f-4f31-97df-5ce1fd8eb04b}</Project>
-      <Name>SkiaScene.Droid</Name>
+      <Name>TouchTracking.Droid</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SkiaScene.Forms.NetStandard\SkiaScene.Forms.NetStandard.csproj">
-      <Project>{56b059fc-ea17-4bc9-ad82-f5fb4b2ae4af}</Project>
-      <Name>SkiaScene.Forms.NetStandard</Name>
+    <ProjectReference Include="..\SkiaScene.Forms.NetStandard\TouchTracking.Forms.csproj">
+      <Project>{36757e1d-10af-4600-a565-40e46abfe8a5}</Project>
+      <Name>TouchTracking.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj">
-      <Project>{c4a9730f-4f39-47fb-bff4-f8da4898d7a7}</Project>
-      <Name>SkiaScene.NetStandard</Name>
+    <ProjectReference Include="..\TouchTracking\TouchTracking.csproj">
+      <Project>{697191d8-ae56-46a9-b0a4-6aafd4b0cdd3}</Project>
+      <Name>TouchTracking</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

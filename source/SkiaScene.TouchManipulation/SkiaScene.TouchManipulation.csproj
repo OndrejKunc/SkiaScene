@@ -5,11 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.121934" />
+    <PackageReference Include="SkiaSharp" Version="1.59.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SkiaScene.NetStandard\SkiaScene.NetStandard.csproj" />
+    <ProjectReference Include="..\TouchTracking\TouchTracking.csproj" />
   </ItemGroup>
 
 </Project>
