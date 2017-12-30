@@ -126,9 +126,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\SkiaScene.Forms.iOS\SkiaScene.Forms.iOS.csproj">
-      <Project>{cb23adb2-d164-4c10-b20f-b239e7446731}</Project>
-      <Name>SkiaScene.Forms.iOS</Name>
+    <ProjectReference Include="..\..\..\source\TouchTracking\TouchTracking.Forms.iOS\TouchTracking.Forms.iOS.csproj">
+      <Project>{2c4f48e7-7f35-4ed0-9a15-abd3f0a38ad0}</Project>
+      <Name>TouchTracking.Forms.iOS</Name>
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>

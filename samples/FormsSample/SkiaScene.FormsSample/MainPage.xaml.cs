@@ -1,6 +1,7 @@
-﻿using SkiaSharp;
+﻿using SkiaScene.TouchManipulation;
+using SkiaSharp;
 using SkiaSharp.Views.Forms;
-using SkiaScene.TouchTracking;
+using TouchTracking;
 using Xamarin.Forms;
 
 namespace SkiaScene.FormsSample
@@ -32,7 +33,7 @@ namespace SkiaScene.FormsSample
 
         private void OnTouchEffectAction(object sender, TouchActionEventArgs args)
         {
-            SKPoint viewPoint = args.Location;
+            var viewPoint = args.Location;
             SKPoint point =
                 new SKPoint((float)(canvasView.CanvasSize.Width * viewPoint.X / canvasView.Width),
                             (float)(canvasView.CanvasSize.Height * viewPoint.Y / canvasView.Height));
