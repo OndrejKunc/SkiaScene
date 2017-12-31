@@ -10,9 +10,9 @@
     <description>SkiaScene provides simple API to manipulate SkiaSharp objects using transformations.</description>
     <licenseUrl>https://github.com/OndrejKunc/SkiaScene/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/OndrejKunc/SkiaScene</projectUrl>
-    <tags>skiascene,xamarin,graphics,ios,android,windows,uwp,cross-platform,skiasharp</tags>
+    <tags>skiascene,xamarin,graphics,ios,android,uwp,cross-platform,skiasharp</tags>
     <dependencies>
-        <dependency id="SkiaSharp" version="1.59.3" />    
+        <dependency id="SkiaSharp" version="1.59.3" />
     </dependencies>
   </metadata>
   <files>
