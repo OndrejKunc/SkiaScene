@@ -22,10 +22,8 @@ namespace SkiaScene.NativeSample.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            //TODO test this
-            _canvasView = new SKCanvasView();
-            View.Add(_canvasView);
+            
+            _canvasView = MainView;
 
             _canvasView.PaintSurface += OnPaint;
             _touchHandler = new TouchHandler();
@@ -47,10 +45,14 @@ namespace SkiaScene.NativeSample.iOS
 
         private void InitSceneObjects()
         {
-            _scene = new SKScene(new TestSceneRenderer(), _canvasView.CanvasSize);
+            _scene = new SKScene(new SvgSceneRenderer(), _canvasView.CanvasSize)
+            {
+                MinScale = 0.001f,
+                MaxScale = 1000
+            };
             _touchManipulationManager = new TouchManipulationManager(_scene)
             {
-                TouchManipulationMode = TouchManipulationMode.ScaleRotate,
+                TouchManipulationMode = TouchManipulationMode.IsotropicScale,
             };
             _touchManipulationRenderer = new TouchManipulationRenderer(_touchManipulationManager, () => _canvasView.SetNeedsDisplay())
             {

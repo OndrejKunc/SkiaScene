@@ -24,7 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>x86_64</MtouchArch>
-    <MtouchLink>None</MtouchLink>
+    <MtouchLink>SdkOnly</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -131,6 +131,10 @@
       <Name>TouchTracking.Forms.iOS</Name>
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\source\TouchTracking\TouchTracking.Forms\TouchTracking.Forms.csproj">
+      <Project>{145d2362-0ca6-4c35-a727-f24097ed4582}</Project>
+      <Name>TouchTracking.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\SkiaScene.FormsSample\SkiaScene.FormsSample.csproj">
       <Project>{93935A28-B082-420A-82B7-2731DA250331}</Project>

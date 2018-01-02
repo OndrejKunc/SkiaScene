@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2C4F48E7-7F35-4ED0-9A15-ABD3F0A38AD0}</ProjectGuid>
+    <ProjectGuid>{2BDD28D5-D3EA-4429-9594-4B3FEFC12214}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <RootNamespace>TouchTracking.Forms.iOS</RootNamespace>

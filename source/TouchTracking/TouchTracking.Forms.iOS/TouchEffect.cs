@@ -2,6 +2,7 @@
 using TouchTracking.iOS;
 using UIKit;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ResolutionGroupName("TouchTracking")]

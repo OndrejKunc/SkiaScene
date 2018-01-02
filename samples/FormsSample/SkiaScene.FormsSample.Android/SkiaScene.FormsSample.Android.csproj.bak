@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>SkiaScene.FormsSample.Droid</RootNamespace>
     <AssemblyName>SkiaScene.FormsSample.Android</AssemblyName>
-    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>

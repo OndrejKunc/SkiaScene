@@ -48,10 +48,14 @@ namespace SkiaScene.NativeSample.Droid
 
         private void InitSceneObjects()
         {
-            _scene = new SKScene(new SvgSceneRenderer(), _canvasView.CanvasSize);
+            _scene = new SKScene(new SvgSceneRenderer(), _canvasView.CanvasSize)
+            {
+                MaxScale = 1000,
+                MinScale = 0.001f,
+            };
             _touchManipulationManager = new TouchManipulationManager(_scene)
             {
-                TouchManipulationMode = TouchManipulationMode.ScaleRotate,
+                TouchManipulationMode = TouchManipulationMode.IsotropicScale,
             };
             _touchManipulationRenderer = new TouchManipulationRenderer(_touchManipulationManager, () => _canvasView.Invalidate())
             {
