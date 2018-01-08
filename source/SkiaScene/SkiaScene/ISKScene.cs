@@ -17,7 +17,7 @@ namespace SkiaScene
         float GetScale();
         float MaxScale { get; set; }
         float MinScale { get; set; }
+        SKPoint ScreenCenter { get; set; }
         SKRect CenterBoundary { get; set; }
-        bool IgnoreCenterBoundary { get; set; }
     }
 }

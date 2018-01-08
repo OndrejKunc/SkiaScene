@@ -7,16 +7,13 @@ namespace SkiaScene
     {
         protected readonly ISKSceneRenderer _sceneRenderer;
         protected SKMatrix Matrix = SKMatrix.MakeIdentity();
-        protected readonly SKPoint DefaultCenter;
 
         protected const float DefaultMaxScale = 8;
         protected const float DefaultMinScale = 1f / 8;
 
-        public SKScene(ISKSceneRenderer sceneRenderer, SKSize canvasSize)
+        public SKScene(ISKSceneRenderer sceneRenderer)
         {
             _sceneRenderer = sceneRenderer;
-            DefaultCenter = new SKPoint(canvasSize.Width / 2, canvasSize.Height / 2);
-            CenterBoundary = new SKRect(-canvasSize.Width, -canvasSize.Height, 2*canvasSize.Width, 2*canvasSize.Height);
         }
 
         public void Render(SKCanvas canvas)
@@ -31,7 +28,7 @@ namespace SkiaScene
         public float MaxScale { get; set; } = DefaultMaxScale;
         public float MinScale { get; set; } = DefaultMinScale;
         public SKRect CenterBoundary { get; set; }
-        public bool IgnoreCenterBoundary { get; set; }
+        public SKPoint ScreenCenter { get; set; }
 
         public void MoveByVector(SKPoint vector)
         {
@@ -42,7 +39,7 @@ namespace SkiaScene
             }
             var resultPoint = invertedMatrix.MapVector(vector.X, vector.Y);
             SKMatrix.PreConcat(ref Matrix, SKMatrix.MakeTranslation(resultPoint.X, resultPoint.Y));
-            if (IgnoreCenterBoundary)
+            if (CenterBoundary.IsEmpty)
             {
                 return;
             }
@@ -88,7 +85,7 @@ namespace SkiaScene
             {
                 return;
             }
-            if (!IgnoreCenterBoundary)
+            if (!CenterBoundary.IsEmpty)
             {
                 var center = GetCenter();
                 if (!CenterBoundary.Contains(center))
@@ -113,7 +110,7 @@ namespace SkiaScene
         
         public SKPoint GetCenter()
         {
-            return GetCanvasPointFromViewPoint(DefaultCenter);
+            return GetCanvasPointFromViewPoint(ScreenCenter);
         }
 
         /// <summary>

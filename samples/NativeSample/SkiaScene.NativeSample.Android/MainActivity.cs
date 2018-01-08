@@ -46,13 +46,24 @@ namespace SkiaScene.NativeSample.Droid
             _touchManipulationRenderer.Render(point, actionType, args.Id);
         }
 
+        private void SetSceneCenter()
+        {
+            if (_scene == null)
+            {
+                return;
+            }
+            var centerPoint = new SKPoint(_canvasView.CanvasSize.Width / 2, _canvasView.CanvasSize.Height / 2);
+            _scene.ScreenCenter = centerPoint;
+        }
+
         private void InitSceneObjects()
         {
-            _scene = new SKScene(new SvgSceneRenderer(), _canvasView.CanvasSize)
+            _scene = new SKScene(new SvgSceneRenderer())
             {
                 MaxScale = 1000,
                 MinScale = 0.001f,
             };
+            SetSceneCenter();
             _touchManipulationManager = new TouchManipulationManager(_scene)
             {
                 TouchManipulationMode = TouchManipulationMode.IsotropicScale,

@@ -1,4 +1,5 @@
-﻿using SkiaScene.TouchManipulation;
+﻿using System;
+using SkiaScene.TouchManipulation;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using TouchTracking;
@@ -15,12 +16,29 @@ namespace SkiaScene.FormsSample
         public MainPage()
         {
             InitializeComponent();
+            this.SizeChanged += OnSizeChanged;
+        }
+
+        private void OnSizeChanged(object sender, EventArgs eventArgs)
+        {
+            SetSceneCenter();
         }
 
 
+        private void SetSceneCenter()
+        {
+            if (_scene == null)
+            {
+                return;
+            }
+            var centerPoint = new SKPoint(canvasView.CanvasSize.Width / 2, canvasView.CanvasSize.Height / 2);
+            _scene.ScreenCenter = centerPoint;
+        }
+
         private void InitSceneObjects()
         {
-            _scene = new SKScene(new TestScenereRenderer(), canvasView.CanvasSize);
+            _scene = new SKScene(new TestScenereRenderer());
+            SetSceneCenter();
             _touchManipulationManager = new TouchManipulationManager(_scene)
             {
                 TouchManipulationMode = TouchManipulationMode.ScaleRotate

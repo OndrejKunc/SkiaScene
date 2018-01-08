@@ -2,6 +2,7 @@
 using SkiaSharp;
 using SkiaSharp.Views.iOS;
 using System;
+using Foundation;
 using TouchTracking.iOS;
 using UIKit;
 
@@ -29,6 +30,14 @@ namespace SkiaScene.NativeSample.iOS
             _touchHandler = new TouchHandler();
             _touchHandler.RegisterEvents(_canvasView);
             _touchHandler.TouchAction += OnTouch;
+
+            Foundation.NSNotificationCenter.DefaultCenter.AddObserver(
+                new NSString("UIDeviceOrientationDidChangeNotification"), OnDeviceRotation);
+        }
+
+        private void OnDeviceRotation(NSNotification notification)
+        {
+            SetSceneCenter();
         }
 
 
@@ -43,13 +52,24 @@ namespace SkiaScene.NativeSample.iOS
             _touchManipulationRenderer.Render(point, actionType, args.Id);
         }
 
+        private void SetSceneCenter()
+        {
+            if (_scene == null)
+            {
+                return;
+            }
+            var centerPoint = new SKPoint(_canvasView.CanvasSize.Width / 2, _canvasView.CanvasSize.Height / 2);
+            _scene.ScreenCenter = centerPoint;
+        }
+
         private void InitSceneObjects()
         {
-            _scene = new SKScene(new SvgSceneRenderer(), _canvasView.CanvasSize)
+            _scene = new SKScene(new SvgSceneRenderer())
             {
                 MinScale = 0.001f,
                 MaxScale = 1000
             };
+            SetSceneCenter();
             _touchManipulationManager = new TouchManipulationManager(_scene)
             {
                 TouchManipulationMode = TouchManipulationMode.IsotropicScale,

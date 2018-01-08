@@ -2,8 +2,10 @@
 using SkiaSharp;
 using SkiaSharp.Views.UWP;
 using System;
+using Windows.UI.Xaml;
 using TouchTracking.UWP;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace SkiaScene.NativeSample.UWP
 {
@@ -26,6 +28,23 @@ namespace SkiaScene.NativeSample.UWP
             CanvasView.PointerWheelChanged += OnPointerWheelChanged;
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            Window.Current.SizeChanged += OnWindowSizeChanged;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            Window.Current.SizeChanged -= OnWindowSizeChanged;
+        }
+
+        private void OnWindowSizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
+        {
+            SetSceneCenter();
+        }
+
         private void OnTouch(object sender, TouchTracking.TouchActionEventArgs args)
         {
             var viewPoint = args.Location;
@@ -37,9 +56,20 @@ namespace SkiaScene.NativeSample.UWP
             _touchManipulationRenderer.Render(point, actionType, args.Id);
         }
 
+        private void SetSceneCenter()
+        {
+            if (_scene == null)
+            {
+                return;
+            }
+            var centerPoint = new SKPoint(CanvasView.CanvasSize.Width / 2, CanvasView.CanvasSize.Height / 2);
+            _scene.ScreenCenter = centerPoint;
+        }
+
         private void InitSceneObjects()
         {
-            _scene = new SKScene(new SvgSceneRenderer(), CanvasView.CanvasSize);
+            _scene = new SKScene(new SvgSceneRenderer());
+            SetSceneCenter();
             _touchManipulationManager = new TouchManipulationManager(_scene)
             {
                 TouchManipulationMode = TouchManipulationMode.IsotropicScale,
