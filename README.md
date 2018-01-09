@@ -3,13 +3,11 @@ Collection of lightweight libraries which can be used to simplify manuplation wi
 
 Supported platforms are .NET Standard 1.3, UWP, Xamarin.iOS, Xamarin.Android.
 
-Currently in prerelease.
-
 ## Libraries
 
 * SkiaScene
 ```
-Install-Package SkiaScene -PreRelease
+Install-Package SkiaScene
 ```
 Implemented as .NET Standard 1.3 library.
 
@@ -34,7 +32,7 @@ canvasView.InvalidateSurface(); //Force to repaint
 
 * TouchTracking
 ```
-Install-Package TouchTracking -PreRelease
+Install-Package TouchTracking
 ```
 Implemented as .NET Standard 1.3 and platform specific libraries.
 
@@ -61,7 +59,7 @@ void OnTouch(object sender, TouchActionEventArgs args) {
 
 * TouchTracking.Forms
 ```
-Install-Package TouchTracking.Forms -PreRelease
+Install-Package TouchTracking.Forms
 ```
 Implemented as .NET Standard 1.3 and platform specific libraries.
 
@@ -80,7 +78,7 @@ xmlns:tt="clr-namespace:TouchTracking.Forms;assembly=TouchTracking.Forms"
 
 * SkiaScene.TouchManipulations
 ```
-Install-Package SkiaScene.TouchManipulations -PreRelease
+Install-Package SkiaScene.TouchManipulations
 ```
 Implemented as .NET Standard 1.3 library.
 
