@@ -19,8 +19,8 @@ Then create the `SKScene` instance:
 
 ```csharp
 //Create scene
-var myRenderer = new MyRenderer(); //user defined instance of ISKSceneRenderer 
-scene = new SKScene(myRenderer, canvasView.CanvasSize); //Pass canvas size of your canvas view control
+ISKSceneRenderer myRenderer = new MyRenderer(); //user defined instance 
+scene = new SKScene(myRenderer);
 
 //In your paint method
 scene.Render(canvas); //Pass canvas from SKPaintSurfaceEventArgs

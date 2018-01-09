@@ -3,7 +3,7 @@
   <metadata>
     <id>SkiaScene.TouchManipulation</id>
     <title>SkiaScene.TouchManipulation</title>
-    <version>0.1.0-beta</version>
+    <version>1.0.0</version>
     <authors>Ondrej Kunc</authors>
     <owners>Ondrej Kunc</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,8 +12,8 @@
     <projectUrl>https://github.com/OndrejKunc/SkiaScene</projectUrl>
     <tags>skiascene,touchtracking,xamarin,graphics,ios,android,uwp,cross-platform,skiasharp</tags>
     <dependencies>
-        <dependency id="SkiaScene" version="0.1.0-beta" />
-        <dependency id="TouchTracking" version="0.1.0-beta" />
+        <dependency id="SkiaScene" version="1.0.0" />
+        <dependency id="TouchTracking" version="1.0.0" />
     </dependencies>
   </metadata>
   <files>
