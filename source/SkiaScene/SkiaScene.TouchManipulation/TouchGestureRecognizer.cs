@@ -8,6 +8,8 @@ namespace SkiaScene.TouchManipulation
 {
     public class TouchGestureRecognizer : ITouchGestureRecognizer
     {
+        private const int MaxTapMoveCounter = 8;
+
         private readonly Dictionary<long, TouchManipulationInfo> _touchDictionary =
             new Dictionary<long, TouchManipulationInfo>();
         protected DateTime LastTapTime = DateTime.MinValue;
@@ -76,7 +78,7 @@ namespace SkiaScene.TouchManipulation
                 return;
             }
             SKPoint point = infos[0].PreviousPoint;
-            if (infos[0].MoveCounter <= 1)
+            if (infos[0].MoveCounter > MaxTapMoveCounter)
             {
                 return;
             }
