@@ -84,7 +84,7 @@ Implemented as .NET Standard 1.3 library.
 
 Combines SkiaScene and TouchTracking libraries to detect and respond to the tap, pinch and pan gestures. Most of the functionality is described in Xamarin Documentation https://developer.xamarin.com/guides/xamarin-forms/advanced/skiasharp/transforms/touch/
 
-`TouchGestureRecognizer` recieves touch event info in 'ProcessTouchEvent' method and fires concrete gesture event executes correct gesture.
+`TouchGestureRecognizer` recieves touch event info in 'ProcessTouchEvent' method and fires concrete gesture event.
 
 `SceneGestureResponder` subscribes to the events of `TouchGestureRecognizer` and executes correct actions in underlying `SKScene`.
 
