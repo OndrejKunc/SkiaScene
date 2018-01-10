@@ -7,5 +7,8 @@ namespace SkiaScene.TouchManipulation
     {
         TouchManipulationMode TouchManipulationMode { get; set; }
         void ProcessTouchEvent(long id, TouchActionType type, SKPoint location);
+        event TapEventHandler OnTap;
+        event TapEventHandler OnDoubleTap;
+        event TapEventHandler OnSingleTap;
     }
 }

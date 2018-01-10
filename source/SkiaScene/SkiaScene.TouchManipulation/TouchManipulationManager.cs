@@ -2,6 +2,7 @@
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace SkiaScene.TouchManipulation
 {
@@ -9,7 +10,17 @@ namespace SkiaScene.TouchManipulation
     public class TouchManipulationManager : ITouchManipulationManager
     {
         private readonly ISKScene _skScene;
-        private Dictionary<long, TouchManipulationInfo> touchDictionary = new Dictionary<long, TouchManipulationInfo>();
+
+        private readonly Dictionary<long, TouchManipulationInfo> touchDictionary =
+            new Dictionary<long, TouchManipulationInfo>();
+        protected DateTime LastTapTime = DateTime.MinValue;
+        protected DateTime LastDoubleTapTime = DateTime.MinValue;
+        protected TimeSpan DoubleTapDelay = TimeSpan.FromMilliseconds(320);
+        private Timer _timer;
+
+        public event TapEventHandler OnTap;
+        public event TapEventHandler OnDoubleTap;
+        public event TapEventHandler OnSingleTap;
 
         public TouchManipulationManager(ISKScene skScene)
         {
@@ -26,19 +37,22 @@ namespace SkiaScene.TouchManipulation
                     touchDictionary.Add(id, new TouchManipulationInfo
                     {
                         PreviousPoint = location,
-                        NewPoint = location
+                        NewPoint = location,
+                        MoveCounter = 0
                     });
                     break;
 
                 case TouchActionType.Moved:
                     TouchManipulationInfo info = touchDictionary[id];
                     info.NewPoint = location;
+                    info.MoveCounter = info.MoveCounter + 1;
                     Manipulate();
                     info.PreviousPoint = info.NewPoint;
                     break;
 
                 case TouchActionType.Released:
                     touchDictionary[id].NewPoint = location;
+                    ProcessTap();
                     Manipulate();
                     touchDictionary.Remove(id);
                     break;
@@ -46,6 +60,50 @@ namespace SkiaScene.TouchManipulation
                 case TouchActionType.Cancelled:
                     touchDictionary.Remove(id);
                     break;
+            }
+        }
+
+        private void ProcessTap()
+        {
+            TouchManipulationInfo[] infos = new TouchManipulationInfo[touchDictionary.Count];
+            touchDictionary.Values.CopyTo(infos, 0);
+            if (infos.Length != 1)
+            {
+                return;
+            }
+            SKPoint point = infos[0].PreviousPoint;
+            if (infos[0].MoveCounter <= 1)
+            {
+                return;
+            }
+            var scenePoint = _skScene.GetCanvasPointFromViewPoint(point);
+            var tapEventArgs = new TapEventArgs(point, scenePoint);
+            
+            var now = DateTime.Now;
+            var lastTapTime = LastTapTime;
+            LastTapTime = now;
+
+            System.Diagnostics.Debug.WriteLine("Invoking tap");
+            OnTap?.Invoke(this, tapEventArgs);
+            if (now - lastTapTime < DoubleTapDelay)
+            {
+                System.Diagnostics.Debug.WriteLine("Invoking double tap");
+                OnDoubleTap?.Invoke(this, tapEventArgs);
+                LastDoubleTapTime = now;
+                LastTapTime = DateTime.MinValue; //Reset double tap timer
+            }
+            else
+            {
+                _timer = new Timer(_ =>
+                {
+                    System.Diagnostics.Debug.WriteLine("On Timer");
+                    if (DateTime.Now - LastDoubleTapTime < DoubleTapDelay)
+                    {
+                        return;
+                    }
+                    System.Diagnostics.Debug.WriteLine("Invoking single tap");
+                    OnSingleTap?.Invoke(this, tapEventArgs);
+                }, null, DoubleTapDelay.Milliseconds, Timeout.Infinite);
             }
         }
 

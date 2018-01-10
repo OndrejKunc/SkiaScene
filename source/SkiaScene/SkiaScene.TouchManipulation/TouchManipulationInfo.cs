@@ -7,5 +7,7 @@ namespace SkiaScene.TouchManipulation
         public SKPoint PreviousPoint { set; get; }
 
         public SKPoint NewPoint { set; get; }
+
+        public int MoveCounter { get; set; }
     }
 }
