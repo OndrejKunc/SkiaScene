@@ -11,8 +11,8 @@ namespace SkiaScene.NativeSample.iOS
     public partial class ViewController : UIViewController
     {
         private ISKScene _scene;
-        private ITouchManipulationManager _touchManipulationManager;
-        private ITouchManipulationRenderer _touchManipulationRenderer;
+        private ITouchGestureRecognizer _touchGestureRecognizer;
+        private ISceneGestureResponder _sceneGestureResponder;
         private SKCanvasView _canvasView;
         private TouchHandler _touchHandler;
 
@@ -49,7 +49,7 @@ namespace SkiaScene.NativeSample.iOS
                             (float)(_canvasView.CanvasSize.Height * viewPoint.Y / _canvasView.Frame.Height));
 
             var actionType = args.Type;
-            _touchManipulationRenderer.Render(point, actionType, args.Id);
+            _touchGestureRecognizer.ProcessTouchEvent(args.Id, actionType, point);
         }
 
         private void SetSceneCenter()
@@ -66,18 +66,17 @@ namespace SkiaScene.NativeSample.iOS
         {
             _scene = new SKScene(new SvgSceneRenderer())
             {
+                MaxScale = 1000,
                 MinScale = 0.001f,
-                MaxScale = 1000
             };
             SetSceneCenter();
-            _touchManipulationManager = new TouchManipulationManager(_scene)
+            _touchGestureRecognizer = new TouchGestureRecognizer();
+            _sceneGestureResponder = new SceneGestureRenderingResponder(() => _canvasView.SetNeedsDisplay(), _scene, _touchGestureRecognizer)
             {
-                TouchManipulationMode = TouchManipulationMode.IsotropicScale,
-            };
-            _touchManipulationRenderer = new TouchManipulationRenderer(_touchManipulationManager, () => _canvasView.SetNeedsDisplay())
-            {
+                TouchManipulationMode = TouchManipulationMode.ScaleRotate,
                 MaxFramesPerSecond = 100,
             };
+            _sceneGestureResponder.StartResponding();
         }
 
         private void OnPaint(object sender, SKPaintSurfaceEventArgs args)
@@ -87,7 +86,6 @@ namespace SkiaScene.NativeSample.iOS
                 InitSceneObjects();
 
             }
-            SKImageInfo info = args.Info;
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
             _scene.Render(canvas);

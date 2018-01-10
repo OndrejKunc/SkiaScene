@@ -3,12 +3,13 @@ using SkiaSharp;
 
 namespace SkiaScene.TouchManipulation
 {
-    public interface ITouchManipulationManager
+    public interface ITouchGestureRecognizer
     {
-        TouchManipulationMode TouchManipulationMode { get; set; }
         void ProcessTouchEvent(long id, TouchActionType type, SKPoint location);
         event TapEventHandler OnTap;
         event TapEventHandler OnDoubleTap;
         event TapEventHandler OnSingleTap;
+        event PinchEventHandler OnPinch;
+        event PanEventHandler OnPan;
     }
 }

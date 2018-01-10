@@ -10,8 +10,8 @@ namespace SkiaScene.FormsSample
     public partial class MainPage : ContentPage
     {
         private ISKScene _scene;
-        private ITouchManipulationManager _touchManipulationManager;
-        private ITouchManipulationRenderer _touchManipulationRenderer;
+        private ITouchGestureRecognizer _touchGestureRecognizer;
+        private ISceneGestureResponder _sceneGestureResponder;
 
         public MainPage()
         {
@@ -37,16 +37,19 @@ namespace SkiaScene.FormsSample
 
         private void InitSceneObjects()
         {
-            _scene = new SKScene(new TestScenereRenderer());
-            SetSceneCenter();
-            _touchManipulationManager = new TouchManipulationManager(_scene)
+            _scene = new SKScene(new TestScenereRenderer())
             {
-                TouchManipulationMode = TouchManipulationMode.ScaleRotate
+                MaxScale = 1000,
+                MinScale = 0.001f,
             };
-            _touchManipulationRenderer = new TouchManipulationRenderer(_touchManipulationManager, () => canvasView.InvalidateSurface())
+            SetSceneCenter();
+            _touchGestureRecognizer = new TouchGestureRecognizer();
+            _sceneGestureResponder = new SceneGestureRenderingResponder(() => canvasView.InvalidateSurface(), _scene, _touchGestureRecognizer)
             {
+                TouchManipulationMode = TouchManipulationMode.ScaleRotate,
                 MaxFramesPerSecond = 100,
             };
+            _sceneGestureResponder.StartResponding();
         }
 
         private void OnTouchEffectAction(object sender, TouchActionEventArgs args)
@@ -57,7 +60,7 @@ namespace SkiaScene.FormsSample
                             (float)(canvasView.CanvasSize.Height * viewPoint.Y / canvasView.Height));
 
             var actionType = args.Type;
-            _touchManipulationRenderer.Render(point, actionType, args.Id);
+            _touchGestureRecognizer.ProcessTouchEvent(args.Id, actionType, point);
         }
 
         private void OnPaint(object sender, SKPaintSurfaceEventArgs args)
