@@ -1,5 +1,4 @@
 ﻿using Android.App;
-using Android.Widget;
 using Android.OS;
 using SkiaSharp.Views.Android;
 using SkiaSharp;
@@ -12,8 +11,8 @@ namespace SkiaScene.NativeSample.Droid
     public class MainActivity : Activity
     {
         private ISKScene _scene;
-        private ITouchManipulationManager _touchManipulationManager;
-        private ITouchManipulationRenderer _touchManipulationRenderer;
+        private ITouchGestureRecognizer _touchGestureRecognizer;
+        private ISceneGestureResponder _sceneGestureResponder;
         private SKCanvasView _canvasView;
         private TouchHandler _touchHandler;
 
@@ -43,7 +42,7 @@ namespace SkiaScene.NativeSample.Droid
                             (float)(_canvasView.CanvasSize.Height * pixelPoint.Y / _canvasView.Height));
 
             var actionType = args.Type;
-            _touchManipulationRenderer.Render(point, actionType, args.Id);
+            _touchGestureRecognizer.ProcessTouchEvent(args.Id, actionType, point);
         }
 
         private void SetSceneCenter()
@@ -64,14 +63,13 @@ namespace SkiaScene.NativeSample.Droid
                 MinScale = 0.001f,
             };
             SetSceneCenter();
-            _touchManipulationManager = new TouchManipulationManager(_scene)
+            _touchGestureRecognizer = new TouchGestureRecognizer();
+            _sceneGestureResponder = new SceneGestureRenderingResponder(() => _canvasView.Invalidate(), _scene, _touchGestureRecognizer)
             {
-                TouchManipulationMode = TouchManipulationMode.IsotropicScale,
-            };
-            _touchManipulationRenderer = new TouchManipulationRenderer(_touchManipulationManager, () => _canvasView.Invalidate())
-            {
+                TouchManipulationMode = TouchManipulationMode.ScaleRotate,
                 MaxFramesPerSecond = 100,
             };
+            _sceneGestureResponder.StartResponding();
         }
 
         private void OnPaint(object sender, SKPaintSurfaceEventArgs args)

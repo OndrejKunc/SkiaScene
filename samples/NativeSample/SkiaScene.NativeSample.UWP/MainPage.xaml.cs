@@ -12,8 +12,8 @@ namespace SkiaScene.NativeSample.UWP
     public sealed partial class MainPage : Page
     {
         private ISKScene _scene;
-        private ITouchManipulationManager _touchManipulationManager;
-        private ITouchManipulationRenderer _touchManipulationRenderer;
+        private ITouchGestureRecognizer _touchGestureRecognizer;
+        private ISceneGestureResponder _sceneGestureResponder;
         private TouchHandler _touchHandler;
 
 
@@ -53,7 +53,7 @@ namespace SkiaScene.NativeSample.UWP
                             (float)(CanvasView.CanvasSize.Height * viewPoint.Y / CanvasView.ActualHeight));
 
             var actionType = args.Type;
-            _touchManipulationRenderer.Render(point, actionType, args.Id);
+            _touchGestureRecognizer.ProcessTouchEvent(args.Id, actionType, point);
         }
 
         private void SetSceneCenter()
@@ -68,16 +68,19 @@ namespace SkiaScene.NativeSample.UWP
 
         private void InitSceneObjects()
         {
-            _scene = new SKScene(new SvgSceneRenderer());
+            _scene = new SKScene(new SvgSceneRenderer())
+            {
+                MaxScale = 1000,
+                MinScale = 0.001f,
+            };
             SetSceneCenter();
-            _touchManipulationManager = new TouchManipulationManager(_scene)
+            _touchGestureRecognizer = new TouchGestureRecognizer();
+            _sceneGestureResponder = new SceneGestureRenderingResponder(() => CanvasView.Invalidate(), _scene, _touchGestureRecognizer)
             {
                 TouchManipulationMode = TouchManipulationMode.IsotropicScale,
-            };
-            _touchManipulationRenderer = new TouchManipulationRenderer(_touchManipulationManager, () => CanvasView.Invalidate())
-            {
                 MaxFramesPerSecond = 30,
             };
+            _sceneGestureResponder.StartResponding();
         }
 
         private void OnPaint(object sender, SKPaintSurfaceEventArgs args)
