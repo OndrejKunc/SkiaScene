@@ -15,13 +15,14 @@ namespace SkiaScene.TouchManipulation
         }
 
         public TouchManipulationMode TouchManipulationMode { get; set; }
+        public float DoubleTapScaleFactor { get; set; } = 2f;
 
         public void StartResponding()
         {
             _touchGestureRecognizer.OnPan += TouchGestureRecognizerOnPan;
             _touchGestureRecognizer.OnPinch += TouchGestureRecognizerOnPinch;
+            _touchGestureRecognizer.OnDoubleTap += TouchGestureRecognizerOnDoubleTap;
         }
-
         public void StopResponding()
         {
             _touchGestureRecognizer.OnPan -= TouchGestureRecognizerOnPan;
@@ -67,5 +68,12 @@ namespace SkiaScene.TouchManipulation
             SKPoint resultVector = args.NewPoint - args.PreviousPoint;
             _skScene.MoveByVector(resultVector);
         }
+
+        protected virtual void TouchGestureRecognizerOnDoubleTap(object sender, TapEventArgs args)
+        {
+            SKPoint scenePoint = _skScene.GetCanvasPointFromViewPoint(args.ViewPoint);
+            _skScene.ZoomByScaleFactor(scenePoint, DoubleTapScaleFactor);
+        }
+
     }
 }

@@ -39,14 +39,14 @@ namespace SkiaScene.FormsSample
         {
             _scene = new SKScene(new TestScenereRenderer())
             {
-                MaxScale = 1000,
-                MinScale = 0.001f,
+                MaxScale = 10,
+                MinScale = 0.3f,
             };
             SetSceneCenter();
             _touchGestureRecognizer = new TouchGestureRecognizer();
             _sceneGestureResponder = new SceneGestureRenderingResponder(() => canvasView.InvalidateSurface(), _scene, _touchGestureRecognizer)
             {
-                TouchManipulationMode = TouchManipulationMode.ScaleRotate,
+                TouchManipulationMode = TouchManipulationMode.IsotropicScale,
                 MaxFramesPerSecond = 100,
             };
             _sceneGestureResponder.StartResponding();
