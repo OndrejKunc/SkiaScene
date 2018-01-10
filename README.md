@@ -84,8 +84,10 @@ Install-Package SkiaScene.TouchManipulations -PreRelease
 ```
 Implemented as .NET Standard 1.3 library.
 
-Combines SkiaScene and TouchTracking libraries to respond to the touch and pan gestures. Most of the functionality is described in Xamarin Documentation https://developer.xamarin.com/guides/xamarin-forms/advanced/skiasharp/transforms/touch/
+Combines SkiaScene and TouchTracking libraries to detect and respond to the tap, pinch and pan gestures. Most of the functionality is described in Xamarin Documentation https://developer.xamarin.com/guides/xamarin-forms/advanced/skiasharp/transforms/touch/
 
-`TouchManipulationManager` recieves touch event info in 'ProcessTouchEvent' method and executes correct gesture in underlying `SKScene`.
+`TouchGestureRecognizer` recieves touch event info in 'ProcessTouchEvent' method and fires concrete gesture event executes correct gesture.
 
-`TouchManipulationRenderer` is a thin wrapper around `TouchManipulationManager` which controls frequency of calling `InvalidateSurface` method through `MaxFramesPerSecond` property.
+`SceneGestureResponder` subscribes to the events of `TouchGestureRecognizer` and executes correct actions in underlying `SKScene`.
+
+`SceneGestureRenderingResponder` inherits from `SceneGestureResponder` and additionally controls frequency of calling `InvalidateSurface` method through `MaxFramesPerSecond` property.
