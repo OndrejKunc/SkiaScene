@@ -33,6 +33,27 @@ namespace TouchTracking.Droid
 
         public override void UnregisterEvents(View view)
         {
+            try
+            {
+                view.GetHashCode();
+            }
+            catch (ObjectDisposedException) //view can be already disposed and we have no other way to remove it from dictionary
+            {
+                var newDictionary = new Dictionary<View, TouchHandler>();
+                foreach (KeyValuePair<View, TouchHandler> item in _viewDictionary)
+                {
+                    try
+                    {
+                        newDictionary[item.Key] = item.Value;
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        continue;
+                    }
+                }
+                _viewDictionary = newDictionary;
+                return;
+            }
             if (_viewDictionary.ContainsKey(view))
             {
                 _viewDictionary.Remove(view);
