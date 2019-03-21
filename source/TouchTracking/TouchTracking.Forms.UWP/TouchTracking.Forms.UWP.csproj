@@ -11,8 +11,8 @@
     <AssemblyName>TouchTracking.Forms.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.10240.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -111,14 +111,6 @@
     <EmbeddedResource Include="Properties\SkiaScene.Forms.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.4</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms">
-      <Version>2.5.0.121934</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TouchTracking.Forms\TouchTracking.Forms.csproj">
       <Project>{bd5b7df3-4b8b-45a5-adf7-db4a7c8a31b7}</Project>
       <Name>TouchTracking.Forms</Name>
@@ -131,6 +123,14 @@
       <Project>{9dca945e-39d0-420c-ad0a-db668d0b9a00}</Project>
       <Name>TouchTracking</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms">
+      <Version>3.0.0.446417</Version>
+    </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

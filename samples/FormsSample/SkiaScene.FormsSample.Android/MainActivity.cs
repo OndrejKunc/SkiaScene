@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using SkiaScene.FormsSample;
 
 namespace SkiaScene.FormsSample.Droid
 {
