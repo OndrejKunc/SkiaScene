@@ -5,7 +5,7 @@ Supported platforms are .NET Standard 1.3, UWP, Xamarin.iOS, Xamarin.Android.
 
 ## Libraries
 
-* SkiaScene
+### SkiaScene
 ```
 Install-Package SkiaScene
 ```
@@ -30,7 +30,7 @@ scene.RotateByRadiansDelta(scene.GetCenter(), 0.1f); //Rotate around center
 canvasView.InvalidateSurface(); //Force to repaint
 ```
 
-* TouchTracking
+### TouchTracking
 ```
 Install-Package TouchTracking
 ```
@@ -57,19 +57,13 @@ void OnTouch(object sender, TouchActionEventArgs args) {
 }
 ```
 
-* TouchTracking.Forms
+### TouchTracking.Forms
 ```
 Install-Package TouchTracking.Forms
 ```
 Implemented as .NET Standard 1.3 and platform specific libraries.
 
 Same functionality as TouchTracking library but can be consumed in Xamarin.Forms as an Effect called TouchEffect.
-
-**Right now, there is an issue in Xamarin.Forms, where routing effect resolution fails silently. To fix it, you must include this line in your AppDelegate FinishedLaunching:**
-
-```
-var _ = new TouchTracking.Forms.iOS.TouchEffect();
-```
 
 ```
 xmlns:tt="clr-namespace:TouchTracking.Forms;assembly=TouchTracking.Forms"
@@ -82,7 +76,14 @@ xmlns:tt="clr-namespace:TouchTracking.Forms;assembly=TouchTracking.Forms"
 </Grid>
 ```
 
-* SkiaScene.TouchManipulations
+**Important: Right now, there is an issue in Xamarin.Forms, where routing effect resolution fails silently. To fix it, you must include this line in your AppDelegate FinishedLaunching:**
+
+```
+var _ = new TouchTracking.Forms.iOS.TouchEffect();
+```
+
+
+### SkiaScene.TouchManipulations
 ```
 Install-Package SkiaScene.TouchManipulations
 ```
