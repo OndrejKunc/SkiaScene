@@ -23,7 +23,7 @@ namespace SkiaScene.FormsSample.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            var touchEffectType = typeof(TouchTracking.Forms.iOS.TouchEffect); //force to load assembly to prevent issue on iOS
+            var _ = new TouchTracking.Forms.iOS.TouchEffect(); //force to load assembly to prevent touch issue on iOS
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

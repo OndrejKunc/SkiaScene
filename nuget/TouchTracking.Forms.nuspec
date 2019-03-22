@@ -3,7 +3,7 @@
   <metadata>
     <id>TouchTracking.Forms</id>
     <title>TouchTracking.Forms</title>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <authors>Ondrej Kunc</authors>
     <owners>Ondrej Kunc</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,8 +12,8 @@
     <projectUrl>https://github.com/OndrejKunc/SkiaScene</projectUrl>
     <tags>touchtracking,xamarin,forms,touch,ios,android,uwp,cross-platform</tags>
     <dependencies>
-      <dependency id="Xamarin.Forms" version="2.5.0" />
-      <dependency id="TouchTracking" version="1.0.0" />     
+      <dependency id="Xamarin.Forms" version="3.0.0" />
+      <dependency id="TouchTracking" version="1.1.0" />     
     </dependencies>
   </metadata>
   <files>
