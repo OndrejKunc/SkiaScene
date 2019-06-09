@@ -27,6 +27,7 @@ namespace SkiaScene.TouchManipulation
         {
             _touchGestureRecognizer.OnPan -= TouchGestureRecognizerOnPan;
             _touchGestureRecognizer.OnPinch -= TouchGestureRecognizerOnPinch;
+            _touchGestureRecognizer.OnDoubleTap -= TouchGestureRecognizerOnDoubleTap;
         }
 
 
