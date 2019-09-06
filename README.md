@@ -76,12 +76,19 @@ xmlns:tt="clr-namespace:TouchTracking.Forms;assembly=TouchTracking.Forms"
 </Grid>
 ```
 
-**Important: Right now, there is an issue in Xamarin.Forms, where routing effect resolution fails silently. To fix it, you must include this line in your AppDelegate FinishedLaunching:**
 
-```
+
+**Important:** Right now, there is an issue on iOS in Xamarin.Forms, where routing effect resolution fails silently. To fix it, you must include this line in your AppDelegate FinishedLaunching:
+
+```csharp
 var _ = new TouchTracking.Forms.iOS.TouchEffect();
 ```
 
+On UWP there is a similar problem in the Release mode where you need to provide explicit Assembly parameter to your Xamarin.Forms.Init method in App.Xaml.cs inside UWP project:
+
+```csharp
+Xamarin.Forms.Forms.Init(e, new[] { typeof(TouchTracking.Forms.UWP.TouchEffect).Assembly });
+```
 
 ### SkiaScene.TouchManipulations
 ```
