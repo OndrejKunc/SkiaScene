@@ -66,7 +66,8 @@ namespace SkiaScene.NativeSample.Droid
             _touchGestureRecognizer = new TouchGestureRecognizer();
             _sceneGestureResponder = new SceneGestureRenderingResponder(() => _canvasView.Invalidate(), _scene, _touchGestureRecognizer)
             {
-                TouchManipulationMode = TouchManipulationMode.ScaleRotate,
+                TouchManipulationMode = TouchManipulationMode.IsotropicScale,
+                //EnableTwoFingersPanInIsotropicScaleMode = true,
                 MaxFramesPerSecond = 100,
             };
             _sceneGestureResponder.StartResponding();
