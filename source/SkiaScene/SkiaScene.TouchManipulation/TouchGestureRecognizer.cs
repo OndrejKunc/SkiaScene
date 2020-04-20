@@ -1,4 +1,4 @@
-﻿using TouchTracking;
+using TouchTracking;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -22,6 +22,8 @@ namespace SkiaScene.TouchManipulation
         public event TapEventHandler OnSingleTap;
         public event PinchEventHandler OnPinch;
         public event PanEventHandler OnPan;
+        
+        public bool TwoFingersPanEnabled { get; set; }
         
         public void ProcessTouchEvent(long id, TouchActionType type, SKPoint location)
         {
@@ -126,6 +128,12 @@ namespace SkiaScene.TouchManipulation
                 SKPoint newPoint = infos[1 - pivotIndex].NewPoint;
                 SKPoint previousPoint = infos[1 - pivotIndex].PreviousPoint;
                 OnPinch?.Invoke(this, new PinchEventArgs(previousPoint, newPoint, pivotPoint, touchActionType));
+                
+                if (TwoFingersPanEnabled) {
+                    SKPoint delta = newPoint - previousPoint;
+                    SKPoint halfOfDelta = new SKPoint(0.5f * delta.X, 0.5f * delta.Y);
+                    OnPan?.Invoke(this, new PanEventArgs(new SKPoint(), halfOfDelta, touchActionType));
+                }
             }
         }
     }
