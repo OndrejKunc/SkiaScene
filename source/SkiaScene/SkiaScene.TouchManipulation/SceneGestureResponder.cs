@@ -34,9 +34,10 @@ namespace SkiaScene.TouchManipulation
 
         protected virtual void TouchGestureRecognizerOnPinch(object sender, PinchEventArgs args)
         {
-            var previousPoint = _skScene.GetCanvasPointFromViewPoint(args.PreviousPoint);
-            var newPoint = _skScene.GetCanvasPointFromViewPoint(args.NewPoint);
-            var pivotPoint = _skScene.GetCanvasPointFromViewPoint(args.PivotPoint);
+            var previousPoint = args.PreviousPoint;
+            var newPoint = args.NewPoint;
+            var pivotPoint = args.PivotPoint;
+            var transformedPivotPoint = _skScene.GetCanvasPointFromViewPoint(pivotPoint);
 
             SKPoint oldVector = previousPoint - pivotPoint;
             SKPoint newVector = newPoint - pivotPoint;
@@ -45,7 +46,7 @@ namespace SkiaScene.TouchManipulation
             {
                 float angle = GetAngleBetweenVectors(oldVector, newVector);
 
-                _skScene.RotateByRadiansDelta(pivotPoint, angle);
+                _skScene.RotateByRadiansDelta(transformedPivotPoint, angle);
 
                 // Effectively rotate the old vector
                 float magnitudeRatio = oldVector.GetMagnitude() / newVector.GetMagnitude();
@@ -64,15 +65,16 @@ namespace SkiaScene.TouchManipulation
                 float magnitudeRatio = oldVectorOriginPoint / oldVector.GetMagnitude();
                 SKPoint oldVectorOrigin = new SKPoint(oldVector.X * magnitudeRatio, oldVector.Y * magnitudeRatio);
                 SKPoint moveVector = newVector - oldVectorOrigin;
+                SKPoint dividedMoveVector = new SKPoint(moveVector.X * 0.5f, moveVector.Y * 0.5f);
 
-                _skScene.MoveByVector(moveVector);
+                _skScene.MoveByVector(dividedMoveVector);
             }
 
             var scale = newVector.GetMagnitude() / oldVector.GetMagnitude();
 
             if (!float.IsNaN(scale) && !float.IsInfinity(scale))
             {
-                _skScene.ZoomByScaleFactor(pivotPoint, scale);
+                _skScene.ZoomByScaleFactor(transformedPivotPoint, scale);
             }
         }
 
