@@ -28,13 +28,14 @@ namespace SkiaScene.TouchManipulation
             {
                 _maxFramesPerSecond = value;
                 _minGestureDuration = TimeSpan.FromMilliseconds(1000d / _maxFramesPerSecond);
-
             }
         }
 
         protected override void TouchGestureRecognizerOnPan(object sender, PanEventArgs args)
         {
-            base.TouchGestureRecognizerOnPan(sender, args);
+            if (args.TouchActionType == TouchActionType.Moved)
+                base.TouchGestureRecognizerOnPan(sender, args);
+
             if (args.TouchActionType == TouchActionType.Released)
             {
                 _invalidateViewAction();
@@ -44,7 +45,9 @@ namespace SkiaScene.TouchManipulation
 
         protected override void TouchGestureRecognizerOnPinch(object sender, PinchEventArgs args)
         {
-            base.TouchGestureRecognizerOnPinch(sender, args);
+            if (args.TouchActionType == TouchActionType.Moved)
+                base.TouchGestureRecognizerOnPinch(sender, args);
+
             ProcessGestureDelays(ref _lastPinchTime, _minGestureDuration, args.TouchActionType);
         }
 
