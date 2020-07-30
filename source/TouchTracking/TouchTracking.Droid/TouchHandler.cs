@@ -9,7 +9,7 @@ namespace TouchTracking.Droid
         View _view;
         bool _capture;
         Func<double, double> _fromPixels;
-        int[] _twoIntArray = new int[2];
+        int[] _locationOnScreen = new int[2];
 
         static Dictionary<View, TouchHandler> _viewDictionary =
             new Dictionary<View, TouchHandler>();
@@ -17,9 +17,18 @@ namespace TouchTracking.Droid
         static Dictionary<int, TouchHandler> _idToTouchHandlerDictionary =
             new Dictionary<int, TouchHandler>();
 
+        private float _lastX;
+        private float _lastY;
+        private float _slop;
+        private bool _moveInProgress;
+
+        public bool UseTouchSlop { get; set; }
+
         public override void RegisterEvents(View view)
         {
             _view = view;
+            _slop = ViewConfiguration.Get(view.Context).ScaledTouchSlop;
+
             if (view != null)
             {
                 _viewDictionary.Add(view, this);
@@ -61,6 +70,17 @@ namespace TouchTracking.Droid
             }
         }
 
+        private TouchTrackingPoint GetScreenPointerCoordinates(
+            int[] screenLocation, MotionEvent motionEvent, int pointerIndex)
+        {
+            var screenPointerCoords =
+                new TouchTrackingPoint(
+                    screenLocation[0] + motionEvent.GetX(pointerIndex),
+                    screenLocation[1] + motionEvent.GetY(pointerIndex));
+
+            return screenPointerCoords;
+        }
+
         private void OnTouch(object sender, View.TouchEventArgs args)
         {
             // Two object common to all the events
@@ -73,10 +93,9 @@ namespace TouchTracking.Droid
             // Get the id that identifies a finger over the course of its progress
             int id = motionEvent.GetPointerId(pointerIndex);
 
-
-            senderView.GetLocationOnScreen(_twoIntArray);
-            TouchTrackingPoint screenPointerCoords = new TouchTrackingPoint(_twoIntArray[0] + motionEvent.GetX(pointerIndex),
-                                                  _twoIntArray[1] + motionEvent.GetY(pointerIndex));
+            senderView.GetLocationOnScreen(_locationOnScreen);
+            TouchTrackingPoint screenPointerCoords =
+                GetScreenPointerCoordinates(_locationOnScreen, motionEvent, pointerIndex);
 
 
             // Use ActionMasked here rather than Action to reduce the number of possibilities
@@ -89,9 +108,47 @@ namespace TouchTracking.Droid
                     _idToTouchHandlerDictionary.Add(id, this);
 
                     _capture = Capture;
+
+                    if (UseTouchSlop)
+                    {
+                        _lastX = args.Event.GetX();
+                        _lastY = args.Event.GetY();
+                    }
                     break;
 
                 case MotionEventActions.Move:
+                    if (motionEvent.PointerCount == 1 && UseTouchSlop)
+                    {
+                        id = motionEvent.GetPointerId(0);
+                        senderView.GetLocationOnScreen(_locationOnScreen);
+
+                        if (!_moveInProgress)
+                        {
+                            var x = args.Event.GetX();
+                            var y = args.Event.GetY();
+
+                            var xDiff = MathF.Abs(_lastX - x);
+                            var yDiff = MathF.Abs(_lastY - y);
+
+                            if (xDiff > _slop || yDiff > _slop)
+                            {
+                                _moveInProgress = true;
+                            }
+                        }
+
+                        if (_moveInProgress)
+                        {
+                            screenPointerCoords = GetScreenPointerCoordinates(_locationOnScreen, motionEvent, pointerIndex);
+                            FireEvent(this, id, TouchActionType.Moved, screenPointerCoords, true);
+                        }
+
+                        break;
+                    }
+
+                    _moveInProgress = false;
+                    _lastX = 0;
+                    _lastY = 0;
+
                     // Multiple Move events are bundled, so handle them in a loop
                     for (pointerIndex = 0; pointerIndex < motionEvent.PointerCount; pointerIndex++)
                     {
@@ -99,11 +156,9 @@ namespace TouchTracking.Droid
 
                         if (_capture)
                         {
-                            senderView.GetLocationOnScreen(_twoIntArray);
+                            senderView.GetLocationOnScreen(_locationOnScreen);
 
-                            screenPointerCoords = new TouchTrackingPoint(_twoIntArray[0] + motionEvent.GetX(pointerIndex),
-                                                            _twoIntArray[1] + motionEvent.GetY(pointerIndex));
-
+                            screenPointerCoords = GetScreenPointerCoordinates(_locationOnScreen, motionEvent, pointerIndex);
                             FireEvent(this, id, TouchActionType.Moved, screenPointerCoords, true);
                         }
                         else
@@ -134,6 +189,10 @@ namespace TouchTracking.Droid
                         }
                     }
                     _idToTouchHandlerDictionary.Remove(id);
+
+                    _moveInProgress = false;
+                    _lastX = 0;
+                    _lastY = 0;
                     break;
 
                 case MotionEventActions.Cancel:
@@ -149,6 +208,10 @@ namespace TouchTracking.Droid
                         }
                     }
                     _idToTouchHandlerDictionary.Remove(id);
+
+                    _moveInProgress = false;
+                    _lastX = 0;
+                    _lastY = 0;
                     break;
             }
         }
@@ -162,13 +225,13 @@ namespace TouchTracking.Droid
                 // Get the view rectangle
                 try
                 {
-                    view.GetLocationOnScreen(_twoIntArray);
+                    view.GetLocationOnScreen(_locationOnScreen);
                 }
                 catch // System.ObjectDisposedException: Cannot access a disposed object.
                 {
                     continue;
                 }
-                TouchTrackingRect viewRect = new TouchTrackingRect(_twoIntArray[0], _twoIntArray[1], view.Width, view.Height);
+                TouchTrackingRect viewRect = new TouchTrackingRect(_locationOnScreen[0], _locationOnScreen[1], view.Width, view.Height);
 
                 if (viewRect.Contains(pointerLocation))
                 {
@@ -193,9 +256,9 @@ namespace TouchTracking.Droid
         private void FireEvent(TouchHandler touchEffect, int id, TouchActionType actionType, TouchTrackingPoint pointerLocation, bool isInContact)
         {
             // Get the location of the pointer within the view
-            touchEffect._view.GetLocationOnScreen(_twoIntArray);
-            double x = pointerLocation.X - _twoIntArray[0];
-            double y = pointerLocation.Y - _twoIntArray[1];
+            touchEffect._view.GetLocationOnScreen(_locationOnScreen);
+            double x = pointerLocation.X - _locationOnScreen[0];
+            double y = pointerLocation.Y - _locationOnScreen[1];
             TouchTrackingPoint point = new TouchTrackingPoint((float)_fromPixels(x), (float)_fromPixels(y));
 
             // Call the method
