@@ -28,7 +28,7 @@ namespace SkiaScene.NativeSample.Droid
             _canvasView = FindViewById<SKCanvasView>(Resource.Id.canvasView);
 
             _canvasView.PaintSurface += OnPaint;
-            _touchHandler = new TouchHandler();
+            _touchHandler = new TouchHandler() { UseTouchSlop = true };
             _touchHandler.RegisterEvents(_canvasView);
             _touchHandler.TouchAction += OnTouch;
         }

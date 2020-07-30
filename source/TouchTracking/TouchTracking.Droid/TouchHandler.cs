@@ -127,8 +127,8 @@ namespace TouchTracking.Droid
                             var x = args.Event.GetX();
                             var y = args.Event.GetY();
 
-                            var xDiff = MathF.Abs(_lastX - x);
-                            var yDiff = MathF.Abs(_lastY - y);
+                            var xDiff = Math.Abs(_lastX - x);
+                            var yDiff = Math.Abs(_lastY - y);
 
                             if (xDiff > _slop || yDiff > _slop)
                             {
