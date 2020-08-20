@@ -1,5 +1,6 @@
 ﻿using System;
 using SkiaSharp;
+using TouchTracking;
 
 namespace SkiaScene.TouchManipulation
 {
@@ -34,6 +35,9 @@ namespace SkiaScene.TouchManipulation
 
         protected virtual void TouchGestureRecognizerOnPinch(object sender, PinchEventArgs args)
         {
+            if (args.TouchActionType != TouchActionType.Moved)
+                return;
+
             var previousPoint = args.PreviousPoint;
             var newPoint = args.NewPoint;
             var pivotPoint = args.PivotPoint;
@@ -80,6 +84,9 @@ namespace SkiaScene.TouchManipulation
 
         protected virtual void TouchGestureRecognizerOnPan(object sender, PanEventArgs args)
         {
+            if (args.TouchActionType != TouchActionType.Moved)
+                return;
+
             SKPoint resultVector = args.NewPoint - args.PreviousPoint;
             _skScene.MoveByVector(resultVector);
         }

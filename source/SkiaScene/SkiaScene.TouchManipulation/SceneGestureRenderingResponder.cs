@@ -33,8 +33,7 @@ namespace SkiaScene.TouchManipulation
 
         protected override void TouchGestureRecognizerOnPan(object sender, PanEventArgs args)
         {
-            if (args.TouchActionType == TouchActionType.Moved)
-                base.TouchGestureRecognizerOnPan(sender, args);
+            base.TouchGestureRecognizerOnPan(sender, args);
 
             if (args.TouchActionType == TouchActionType.Released)
             {
@@ -45,8 +44,7 @@ namespace SkiaScene.TouchManipulation
 
         protected override void TouchGestureRecognizerOnPinch(object sender, PinchEventArgs args)
         {
-            if (args.TouchActionType == TouchActionType.Moved)
-                base.TouchGestureRecognizerOnPinch(sender, args);
+            base.TouchGestureRecognizerOnPinch(sender, args);
 
             ProcessGestureDelays(ref _lastPinchTime, _minGestureDuration, args.TouchActionType);
         }
