@@ -3,7 +3,7 @@
   <metadata>
     <id>SkiaScene.TouchManipulation</id>
     <title>SkiaScene.TouchManipulation</title>
-    <version>2.2.0</version>
+    <version>2.2.1</version>
     <authors>Ondrej Kunc</authors>
     <owners>Ondrej Kunc</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,7 +13,7 @@
     <tags>skiascene,touchtracking,xamarin,graphics,ios,android,uwp,cross-platform,skiasharp</tags>
     <dependencies>
       <dependency id="SkiaScene" version="1.0.0" />
-      <dependency id="TouchTracking" version="1.1.0" />
+      <dependency id="TouchTracking" version="1.2.0" />
     </dependencies>
   </metadata>
   <files>

@@ -46,7 +46,7 @@ Android example:
 ```csharp
 //Initialization
 canvasView = FindViewById<SKCanvasView>(Resource.Id.canvasView); //Get SKCanvasView
-touchHandler = new TouchHandler();
+touchHandler = new TouchHandler() { UseTouchSlop = true };
 touchHandler.RegisterEvents(canvasView); //Pass View to the touch handler
 touchHandler.TouchAction += OnTouch; //Listen to the touch gestures
 
